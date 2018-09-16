@@ -14,7 +14,6 @@ public class RssConnectorTest {
         this.instance = new RssConnector();
     }
 
-
     @Test
     public void isAvailable_isOk() {
         assertTrue(instance.isAvailable());

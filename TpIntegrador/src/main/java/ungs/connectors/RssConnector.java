@@ -11,8 +11,10 @@ public class RssConnector extends AbstractRssConnector implements AbstractConnec
 
     private Configuration configuration;
 
-    public RssConnector() {
+    public RssConnector() {}
 
+    public RssConnector(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override
@@ -21,7 +23,9 @@ public class RssConnector extends AbstractRssConnector implements AbstractConnec
     }
 
     @Override
-    public List<RssItemDto> find(String url) {
+    public List<RssItemDto> find(String keyUrl) {
+        String url = configuration.getValueByKey(keyUrl);
+        logger.info("Get Service RSS , Url: " + url);
         RssRootDto rssRootDto = JsonMapper.getMapper().getValueFromXml(this.connectionStatus(url), RssRootDto.class);
         return rssRootDto.getRss().getChannel().getListItems(); // FIXME puede haber NullPointer
     }

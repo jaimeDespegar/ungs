@@ -1,18 +1,33 @@
 package ungs.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ungs.connectors.AbstractConnector;
 import ungs.model.Configuration;
 import ungs.utils.ReaderValuesConfiguration;
+import ungs.utils.exceptions.ConfigurationException;
+import java.util.Map;
 
 public abstract class Service {
 
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
     protected Configuration configuration;
     protected AbstractConnector connector;
 
     public Service(AbstractConnector connector, String configurationFile) {
-        this.configuration = new Configuration(new ReaderValuesConfiguration(configurationFile).getValues());
         this.connector = connector;
+        this.configuration = getConfiguration(configurationFile);
         this.connector.setConfiguration(configuration);
+    }
+
+    private Configuration getConfiguration(String pathConfiguration) {
+        Map map = null;
+        try {
+           map = new ReaderValuesConfiguration(pathConfiguration).getValues();
+        } catch (ConfigurationException ce) {
+            this.logger.warn("El servicio no puede levantarse porque ocurrio el siguiente error: " + ce.getMessage());
+        }
+        return new Configuration(map);
     }
 
 }
