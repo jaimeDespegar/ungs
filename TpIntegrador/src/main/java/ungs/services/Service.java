@@ -1,7 +1,18 @@
 package ungs.services;
 
-public interface Service<M> {
+import ungs.connectors.AbstractConnector;
+import ungs.model.Configuration;
+import ungs.utils.ReaderValuesConfiguration;
 
-    M getModel();
+public abstract class Service {
+
+    protected Configuration configuration;
+    protected AbstractConnector connector;
+
+    public Service(AbstractConnector connector, String configurationFile) {
+        this.configuration = new Configuration(new ReaderValuesConfiguration(configurationFile).getValues());
+        this.connector = connector;
+        this.connector.setConfiguration(configuration);
+    }
 
 }

@@ -1,9 +1,12 @@
 package ungs.connectors;
 
-public abstract class AbstractConnector {
+import ungs.model.Configuration;
 
-    public abstract boolean isConnectionSuccess();
+import java.util.List;
 
-    public abstract void connection();
+public interface AbstractConnector<T> {
 
+    boolean isAvailable();
+    List<T> find(String url);
+    void setConfiguration(Configuration configuration);
 }
