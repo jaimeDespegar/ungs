@@ -1,13 +1,14 @@
 package ungs.connectors;
 
 import com.google.common.collect.Lists;
+import com.sun.javafx.binding.StringFormatter;
 import ungs.dto.rss.RssItemDto;
 import ungs.dto.rss.RssRootDto;
 import ungs.model.Configuration;
 import ungs.utils.JsonMapper;
 import java.util.List;
 
-public class RssConnector extends AbstractRssConnector implements AbstractConnector<RssItemDto>{
+public class RssConnector extends AbstractRssConnector implements Connector<RssItemDto> {
 
     private Configuration configuration;
 
@@ -25,7 +26,7 @@ public class RssConnector extends AbstractRssConnector implements AbstractConnec
     @Override
     public List<RssItemDto> find(String keyUrl) {
         String url = configuration.getValueByKey(keyUrl);
-        logger.info("Get Service RSS , Url: " + url);
+        logger.info(String.format("Get Service RSS, Url: %s.", url));
         RssRootDto rssRootDto = JsonMapper.getMapper().getValueFromXml(this.connectionStatus(url), RssRootDto.class);
         return rssRootDto.getRss().getChannel().getListItems(); // FIXME puede haber NullPointer
     }

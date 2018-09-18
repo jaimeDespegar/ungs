@@ -2,7 +2,7 @@ package ungs.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.Connector;
 import ungs.model.Configuration;
 import ungs.utils.ReaderValuesConfiguration;
 import ungs.utils.exceptions.ConfigurationException;
@@ -12,9 +12,9 @@ public abstract class Service {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     protected Configuration configuration;
-    protected AbstractConnector connector;
+    protected Connector connector;
 
-    public Service(AbstractConnector connector, String configurationFile) {
+    public Service(Connector connector, String configurationFile) {
         this.connector = connector;
         this.configuration = getConfiguration(configurationFile);
         this.connector.setConfiguration(configuration);

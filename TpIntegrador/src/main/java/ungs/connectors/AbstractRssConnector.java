@@ -1,12 +1,11 @@
 package ungs.connectors;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
 import java.io.InputStream;
 
 public class AbstractRssConnector {
@@ -19,38 +18,26 @@ public class AbstractRssConnector {
         InputStream inputResponse = null;
         try {
             HttpResponse response = this.connection(url);
-            if (isOkResponse(response)) {
+            if (UtilConnector.isOkResponse(response)) {
                 inputResponse = response.getEntity().getContent();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn("No Response RSS Application", e); // TODO hacer algo mas !
         }
         return inputResponse;
     }
 
-    private HttpResponse connection(String url) throws Exception{
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpGet getRequest = new HttpGet(url);
-        return httpClient.execute(getRequest);
-    }
-
-    private boolean isOkResponse(HttpResponse response) {
-        return response.getStatusLine().getStatusCode()>=200 &&
-               response.getStatusLine().getStatusCode()<300;
+    private HttpResponse connection(String url) throws IOException {
+        Response execute = Request.Get(url).execute();
+        return execute.returnResponse();
     }
 
     protected boolean isServiceOk(String url) {
         try {
-            return isOkResponse(connection(url));
+            return UtilConnector.isOkResponse(connection(url));
         } catch (Exception e) {
             return false;
         }
      }
-
-
-    public static void main(String[] args) throws Exception{
-        AbstractRssConnector a = new AbstractRssConnector();
-        a.connection("");
-    }
 
 }
