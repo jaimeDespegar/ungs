@@ -7,6 +7,8 @@ import ungs.connectors.RssConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.services.RssService;
 import ungs.themes.Theme;
+import ungs.transformers.RssTransformer;
+
 import java.util.List;
 
 public class RssServiceTest {
@@ -15,7 +17,7 @@ public class RssServiceTest {
 
     @BeforeClass
     public void init() {
-        this.service = new RssService(new RssConnector());
+        this.service = new RssService(new RssTransformer(), new RssConnector());
     }
 
     @Test

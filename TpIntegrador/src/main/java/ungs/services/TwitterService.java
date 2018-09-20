@@ -4,13 +4,14 @@ import com.google.common.collect.Lists;
 import ungs.connectors.TwitterConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.themes.Theme;
+import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
 import java.util.List;
 
-public class TwitterService extends Service<TwitterConnector> {
+public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, TwitterTransformer> {
 
-    public TwitterService(TwitterConnector connector) {
-        super(connector, ConfigUtils.TWITTER_FILE);
+    public TwitterService(TwitterTransformer transformer, TwitterConnector connector) {
+        super(transformer, connector, ConfigUtils.TWITTER_FILE);
     }
 
     public boolean isOkServiceTwitter() {

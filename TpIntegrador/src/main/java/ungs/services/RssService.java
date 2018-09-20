@@ -4,13 +4,14 @@ import com.google.common.collect.Lists;
 import ungs.connectors.RssConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.themes.Theme;
+import ungs.transformers.RssTransformer;
 import ungs.utils.ConfigUtils;
 import java.util.List;
 
 public class RssService extends Service{
 
-    public RssService(RssConnector connector) {
-        super(connector, ConfigUtils.RSS_FILE);
+    public RssService(RssTransformer transformer, RssConnector connector) {
+        super(transformer, connector, ConfigUtils.RSS_FILE);
     }
 
     public boolean isOkServiceRss() {
