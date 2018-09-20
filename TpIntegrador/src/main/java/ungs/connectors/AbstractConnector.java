@@ -6,12 +6,21 @@ import org.apache.http.client.fluent.Response;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ungs.model.Configuration;
 import ungs.utils.exceptions.ConnectionException;
 import java.io.IOException;
 
-public class AbstractConnector {
+public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    protected Configuration configuration;
+
+    public AbstractConnector() {}
+
+    public AbstractConnector(Configuration configuration) {
+        this.configuration = configuration;
+    }
 
     protected boolean isServiceOk(String url) {
         try {
@@ -55,4 +64,9 @@ public class AbstractConnector {
         throw new ConnectionException(message, e);
     }
 
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    public abstract void init();
 }

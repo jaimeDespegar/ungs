@@ -46,4 +46,11 @@ public class RssServiceTest {
         assertEquals(items.size(), 10);
     }
 
+    @Test
+    public void getListItemByThemeTest_whenHaveAllThemes_thenReturnListWithThirtyItems() {
+        List<RssItemDto> items = this.service.getAllItems();
+        //items.forEach(i->System.out.println("item " + i));
+        assertEquals(items.size(), 30);
+    }
+
 }

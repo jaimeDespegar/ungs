@@ -1,5 +1,9 @@
 package ungs.themes;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 public enum Theme {
 
     DEPORTES("rss.theme.sport"),
@@ -15,4 +19,9 @@ public enum Theme {
     public String getValueKey() {
         return valueKey;
     }
+
+    public static List<Theme> getThemes() {
+        return Lists.newArrayList(values());
+    }
+
 }

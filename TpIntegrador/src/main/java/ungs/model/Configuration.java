@@ -1,6 +1,8 @@
 package ungs.model;
 
 import com.google.common.collect.Maps;
+import ungs.utils.ConfigUtils;
+
 import java.util.Map;
 
 public class Configuration {
@@ -13,12 +15,16 @@ public class Configuration {
         this.values = configurations;
     }
 
-    public String getValueByKey(String key) {
+    public String get(String key) {
         return values.get(key);
     }
 
-    public void setValues(Map values) {
-        this.values = values;
+    public Integer getNumber(String key) {
+        try {
+            return Integer.valueOf(get(key));
+        } catch (NumberFormatException nfe) {
+            return ConfigUtils.DEFAULT_COUNT;
+        }
     }
 
 }
