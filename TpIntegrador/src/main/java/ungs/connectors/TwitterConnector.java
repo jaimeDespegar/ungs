@@ -1,32 +1,24 @@
 package ungs.connectors;
 
 import com.google.common.collect.Lists;
-import org.apache.http.client.utils.DateUtils;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
-import org.joda.time.DateTimeZone;
-import org.joda.time.JodaTimePermission;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 import ungs.dto.TwitterObjectDto;
+import ungs.helpers.TwitterHelper;
 import ungs.utils.ConfigUtils;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
 
     private Twitter twitter;
+    private TwitterHelper helper;
+
+    public TwitterConnector(TwitterHelper helper) {
+        this.helper = helper;
+    }
 
     public TwitterConnector() {
-
+        this.helper = new TwitterHelper();
     }
 
     @Override
@@ -43,13 +35,19 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
 
     @Override
     public boolean isAvailable() {
-        return false;
+        try {
+            logger.info("twitter.getScreenName() : " + twitter.getScreenName());
+            return twitter.getScreenName().length()>0;
+        } catch (Exception e) {
+            logger.warn("El usuario no esta habilitado, error");
+            return false;
+        }
     }
 
     @Override
     public List<TwitterObjectDto> find(String valueToFind) {
         try {
-            return transformToTwetterModel(searchtweets(valueToFind));
+            return helper.transformToTwetterModel(searchtweets(valueToFind));
         } catch (TwitterException te) {
             te.printStackTrace(); // TODO hacer algo mas !
         }
@@ -83,18 +81,4 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
         return result.getTweets();
     }
 
-    private List<TwitterObjectDto> transformToTwetterModel(List<Status> items) {
-        List<TwitterObjectDto> tweets = Lists.newArrayList();
-        items.forEach(i-> tweets.add(transform(i)));
-        return tweets;
-    }
-
-    private TwitterObjectDto transform(Status item) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-
-        String dateInString = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(item.getCreatedAt());
-        System.out.println(dateInString);
-        DateTime dateTime = DateTime.parse(dateInString, formatter).withZone(DateTimeZone.forID("Asia/Kolkata"));
-        return new TwitterObjectDto(dateTime.toDate(), item.getText(), item.getUser().getScreenName());
-    }
 }

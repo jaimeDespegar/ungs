@@ -14,13 +14,16 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
         super(transformer, connector, ConfigUtils.TWITTER_FILE);
     }
 
+    public TwitterService(TwitterTransformer transformer, TwitterConnector connector, String urlFile) {
+        super(transformer, connector, urlFile);
+    }
+
     public boolean isOkServiceTwitter() {
         return this.connector.isAvailable();
     }
 
     public List<TwitterObjectDto> getTweetsByTheme(Theme theme) {
         List<TwitterObjectDto> tweets = Lists.newArrayList();
-
         return tweets;
     }
 
