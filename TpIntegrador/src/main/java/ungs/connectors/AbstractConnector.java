@@ -6,6 +6,7 @@ import org.apache.http.client.fluent.Response;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ungs.helpers.ConnectionHelper;
 import ungs.model.Configuration;
 import ungs.utils.exceptions.ConnectionException;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
 
     protected boolean isServiceOk(String url) {
         try {
-            return this.isOkResponse(connectionResponse(url));
+            return ConnectionHelper.isOkResponse(connectionResponse(url));
         } catch (IOException e) {
             return false;
         }
@@ -35,7 +36,7 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
         try {
             result = this.connection(pathJson);
         } catch (IOException e) {
-            this.throwConnectionException("Error", e);
+            ConnectionHelper.throwConnectionException(logger, "Error", e);
         }
         logger.info("A satisfactory connection was established with the Rest Application");
         return result;
@@ -43,7 +44,7 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
 
     private String connection(String pathRestJson) throws IOException{
         HttpResponse response = connectionResponse(pathRestJson);
-        if (isOkResponse(response)) {
+        if (ConnectionHelper.isOkResponse(response)) {
             return EntityUtils.toString(response.getEntity());
         }
         return null;
@@ -54,19 +55,9 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
         return execute.returnResponse();
     }
 
-    protected boolean isOkResponse(HttpResponse response) {
-        return response.getStatusLine().getStatusCode()>=200 &&
-               response.getStatusLine().getStatusCode()<300;
-    }
-
-    protected void throwConnectionException(String message, Exception e) {
-        logger.error(message, e);
-        throw new ConnectionException(message, e);
-    }
-
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
     }
 
-    public abstract void init();
+    public abstract void initConnection();
 }

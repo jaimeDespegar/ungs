@@ -14,6 +14,10 @@ public class RssService extends Service{
         super(transformer, connector, ConfigUtils.RSS_FILE);
     }
 
+    public RssService(RssTransformer transformer, RssConnector connector, String urlFile) {
+        super(transformer, connector, urlFile);
+    }
+
     public boolean isOkServiceRss() {
         return this.connector.isAvailable();
     }

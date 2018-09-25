@@ -111,12 +111,6 @@
             <artifactId>joda-time</artifactId>
             <version>2.10</version>
         </dependency>
-        <dependency>
-            <groupId>org.mx</groupId>
-            <artifactId>mx-utils</artifactId>
-            <version>2.1.23</version>
-            <scope>runtime</scope>
-        </dependency>
 
     </dependencies>
 

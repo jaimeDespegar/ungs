@@ -22,7 +22,7 @@ public abstract class Service<T extends AbstractConnector, OBJECT, TRANSFORMER e
         this.transformer = transformer;
         this.connector = connector;
         this.connector.setConfiguration(getConfiguration(configurationFile));
-        this.connector.init();
+        this.connector.initConnection();
     }
 
     private Configuration getConfiguration(String pathConfiguration) {

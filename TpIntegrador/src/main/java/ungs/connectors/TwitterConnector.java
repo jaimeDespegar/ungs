@@ -22,13 +22,12 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
     }
 
     @Override
-    public void init() {
+    public void initConnection() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-                .setOAuthConsumerKey(configuration.get(ConfigUtils.TWITTER_API_KEY))
-                .setOAuthConsumerSecret(configuration.get(ConfigUtils.TWITTER_API_SECRET_KEY))
-                .setOAuthAccessToken(configuration.get(ConfigUtils.TWITTER_TOKEN_KEY))
-                .setOAuthAccessTokenSecret(configuration.get(ConfigUtils.TWITTER_TOKEN_SECRET_KEY));
+        cb.setDebugEnabled(true).setOAuthConsumerKey(configuration.get(ConfigUtils.TWITTER_API_KEY))
+                                .setOAuthConsumerSecret(configuration.get(ConfigUtils.TWITTER_API_SECRET_KEY))
+                                .setOAuthAccessToken(configuration.get(ConfigUtils.TWITTER_TOKEN_KEY))
+                                .setOAuthAccessTokenSecret(configuration.get(ConfigUtils.TWITTER_TOKEN_SECRET_KEY));
         TwitterFactory tf = new TwitterFactory(cb.build());
         this.twitter = tf.getInstance();
     }
@@ -47,7 +46,8 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
     @Override
     public List<TwitterObjectDto> find(String valueToFind) {
         try {
-            return helper.transformToTwetterModel(searchtweets(valueToFind));
+            List<Status> result = searchtweets(valueToFind);
+            return helper.transformToTwitterModel(result);
         } catch (TwitterException te) {
             te.printStackTrace(); // TODO hacer algo mas !
         }

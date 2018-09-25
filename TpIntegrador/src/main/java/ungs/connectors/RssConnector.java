@@ -5,6 +5,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.http.HttpResponse;
 import ungs.dto.rss.RssItemDto;
 import ungs.dto.rss.RssRootDto;
+import ungs.helpers.ConnectionHelper;
 import ungs.model.Configuration;
 import ungs.utils.JsonMapper;
 import java.io.InputStream;
@@ -17,7 +18,7 @@ public class RssConnector extends AbstractConnector<RssItemDto> {
     public RssConnector() {}
 
     @Override
-    public void init() {}
+    public void initConnection() {}
 
     @Override
     public boolean isAvailable() {
@@ -50,7 +51,7 @@ public class RssConnector extends AbstractConnector<RssItemDto> {
         InputStream inputResponse = null;
         try {
             HttpResponse response = this.connectionResponse(url);
-            if (isOkResponse(response)) {
+            if (ConnectionHelper.isOkResponse(response)) {
                 inputResponse = response.getEntity().getContent();
             }
         } catch (Exception e) {
