@@ -24,5 +24,4 @@ public class InformationService {
         // TODO tengo que pedirle a todos los proveedores la info e ir agrupandolo en esta lista!
         return items;
     }
-
 }

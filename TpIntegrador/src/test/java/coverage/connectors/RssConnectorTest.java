@@ -1,4 +1,4 @@
-package connectors;
+package coverage.connectors;
 
 import static org.junit.Assert.*;
 import org.testng.annotations.BeforeClass;

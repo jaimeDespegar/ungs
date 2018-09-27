@@ -1,17 +1,20 @@
 package ungs.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class TwitterObjectDto {
 
     private Date date;
     private String description;
     private String userName;
+    private List<String> hashtags;
 
-    public TwitterObjectDto(Date date, String description, String userName) {
+    public TwitterObjectDto(Date date, String description, String userName, List<String> hashtags) {
         this.date = date;
         this.description = description;
         this.userName = userName;
+        this.hashtags = hashtags;
     }
 
     public Date getDate() {
@@ -38,8 +41,18 @@ public class TwitterObjectDto {
         this.userName = userName;
     }
 
+    public List<String> getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
+    }
+
+
     @Override
     public String toString() {
+        hashtags.forEach(i->System.out.println(i));
         return "TwitterObjectDto{" +
                 "date=" + date +
                 ", description='" + description + '\'' +

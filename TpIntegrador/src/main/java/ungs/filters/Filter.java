@@ -1,7 +1,10 @@
 package ungs.filters;
 
+import java.util.List;
+
 public interface Filter<INPUT, OUTPUT > {
 
-    OUTPUT applyFilter(INPUT input);
+    List<OUTPUT> applyFilter(List<INPUT> input);
+
 
 }

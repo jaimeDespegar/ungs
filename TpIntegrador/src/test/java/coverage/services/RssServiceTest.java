@@ -1,4 +1,4 @@
-package services;
+package coverage.services;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeClass;
