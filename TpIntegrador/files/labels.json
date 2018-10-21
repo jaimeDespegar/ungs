@@ -1,0 +1,29 @@
+
+{
+  "labels": [
+    {
+      "code": "ES",
+      "values": {
+        "tittle": "InfoUngs",
+        "btnSearch": "Buscar",
+        "filters": "Filtros",
+        "filter-all":"Todos",
+        "filter-selection": "Seleccion",
+        "twitter": "Twitter",
+        "rss": "TN Noticias",
+        "theme": "Tema",
+        "theme-sport": "Deportes",
+        "theme-politics": "Politica",
+        "description": "Descripcion",
+      }
+    },
+    {
+      "code": "EN",
+      "values": {
+        "100": "",
+        "200": "",
+        "300": ""
+      }
+    }
+  ]
+}

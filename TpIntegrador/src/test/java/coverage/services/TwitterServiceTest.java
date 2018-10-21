@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ungs.connectors.TwitterConnector;
 import ungs.dto.TwitterObjectDto;
+import ungs.model.Configuration;
 import ungs.services.TwitterService;
 import ungs.transformers.TwitterTransformer;
 import java.util.List;
@@ -15,7 +16,7 @@ public class TwitterServiceTest {
 
     @BeforeClass
     public void init() {
-        this.service = new TwitterService(new TwitterTransformer(), new TwitterConnector());
+        this.service = new TwitterService(new TwitterTransformer(), new TwitterConnector(), new Configuration());
     }
 
     @Test

@@ -7,7 +7,6 @@ import java.util.List;
 public enum Theme {
 
     DEPORTES("rss.theme.sport"),
-    MUSICA("rss.theme.music"),
     POLITICA("rss.theme.politics");
 
     private String valueKey;

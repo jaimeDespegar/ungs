@@ -29,7 +29,7 @@ public class JsonMapper {
         return gson.fromJson(json, type);
     }
 
-    public String mapperObjectToJson(Object object) {
+    public String toJson(Object object) {
         return gson.toJson(object);
     }
 

@@ -111,7 +111,12 @@
             <artifactId>joda-time</artifactId>
             <version>2.10</version>
         </dependency>
-
+        <!-- MONGO DB -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>3.8.2</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 import ungs.dto.TwitterObjectDto;
+import ungs.filters.ConditionFilter;
 import ungs.helpers.TwitterHelper;
 import ungs.utils.ConfigUtils;
 import java.util.List;
@@ -63,8 +64,8 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
         return this.find("from:" + user + " " + description);
     }
 
-    public List<TwitterObjectDto> findByDescription(String description) {
-        return this.find( description);
+    public List<TwitterObjectDto> findByFilter(ConditionFilter filter) {
+        return this.find(filter.getValue());
     }
 
     public List<TwitterObjectDto> findByHashtag(String hashtag) {

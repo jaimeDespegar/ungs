@@ -12,16 +12,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class Service<T extends AbstractConnector, OBJECT, TRANSFORMER extends TransformerInformation<OBJECT>> {
+public abstract class Service<C extends AbstractConnector, OBJECT, T extends TransformerInformation<OBJECT>> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
-    protected T connector;
-    protected TRANSFORMER transformer;
+    protected C connector;
+    protected T transformer;
+    protected Configuration configuration;
 
-    public Service(TRANSFORMER transformer, T connector, String configurationFile) {
+    public Service(T transformer, C connector, Configuration configuration) {
         this.transformer = transformer;
         this.connector = connector;
-        this.connector.setConfiguration(getConfiguration(configurationFile));
+        this.configuration = configuration;
+      //  this.connector.setConfiguration(getConfiguration(configurationFile));
         this.connector.initConnection();
     }
 

@@ -1,8 +1,11 @@
 package ungs.services;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.codec.binary.StringUtils;
 import ungs.connectors.TwitterConnector;
 import ungs.dto.TwitterObjectDto;
+import ungs.filters.ConditionFilter;
+import ungs.model.Configuration;
 import ungs.themes.Theme;
 import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
@@ -10,12 +13,8 @@ import java.util.List;
 
 public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, TwitterTransformer> {
 
-    public TwitterService(TwitterTransformer transformer, TwitterConnector connector) {
-        super(transformer, connector, ConfigUtils.TWITTER_FILE);
-    }
-
-    public TwitterService(TwitterTransformer transformer, TwitterConnector connector, String urlFile) {
-        super(transformer, connector, urlFile);
+    public TwitterService(TwitterTransformer transformer, TwitterConnector connector, Configuration configuration) {
+        super(transformer, connector, configuration);
     }
 
     public boolean isOkServiceTwitter() {
@@ -31,12 +30,12 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
         return this.connector.findByUser(user);
     }
 
-    public List<TwitterObjectDto> getTweetsByDescription(String description) {
-        return this.connector.findByDescription(description);
+    public List<TwitterObjectDto> getTweetsByConditionFilter(ConditionFilter filter) {
+        return this.connector.findByFilter(filter);
     }
 
-    public List<TwitterObjectDto> getTweetsByUserAndDescription(String user, String description) {
-        return this.connector.findByUserAndDescription(user, description);
+    public List<TwitterObjectDto> getAllTweets() {
+        return this.connector.find("");
     }
 
 }
