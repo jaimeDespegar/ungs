@@ -4,8 +4,13 @@ import java.io.File;
 
 public abstract class ConfigUtils {
 
-    public static final String RSS_FILE     = "files" + File.separator + "rss.properties";
-    public static final String TWITTER_FILE = "files" + File.separator + "twitter.properties";
+    // FILES
+    public static final String FOLDER_PATH = "files" + File.separator;
+    public static final String RSS_FILE     = FOLDER_PATH + "rss.properties";
+    public static final String TWITTER_FILE = FOLDER_PATH + "twitter.properties";
+    public static final String MONGO_FILE = FOLDER_PATH + "mongo.properties";
+    public static final String ERRORS_FILE = FOLDER_PATH + "errors.json";
+    public static final String LABELS_FILE = FOLDER_PATH + "labels.json";
 
     public static Integer DEFAULT_COUNT = 10;
 
@@ -17,8 +22,13 @@ public abstract class ConfigUtils {
     public static final String TWITTER_TOKEN_SECRET_KEY = "twitter.user.tokenSecretKey";
     public static final String TWITTER_USERS_SPORT = "twitter.themes.sport.users";
     public static final String TWITTER_USERS_POLITICS = "twitter.themes.politics.users";
-    public static final String TWITTER_USERS_MUSIC = "twitter.themes.music.users";
     public static final String TWITTER_COUNT = "twitter.tweets.count";
     // RSS
+
+    // MONGO
+    public static final String MONGO_HOST = "mongo.host";
+    public static final String MONGO_PORT = "mongo.port";
+    public static final String MONGO_BD = "mongo.database";
+    public static final String MONGO_COLECCTION = "mongo.collection";
 
 }
