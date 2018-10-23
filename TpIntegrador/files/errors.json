@@ -4,17 +4,17 @@
     {
       "code": "ES",
       "values": {
-        "100": "",
-        "200": "",
-        "300": ""
+        "100": "Error de Configuracion: %s",
+        "200": "Valor No aceptado: %s",
+        "300": "Error de conexion: %s"
       }
     },
     {
       "code": "EN",
       "values": {
-        "100": "",
-        "200": "",
-        "300": ""
+        "100": "Error of Configuration: %s",
+        "200": "Valor Not success: %s",
+        "300": "Error of conexion: %s"
       }
     }
   ]

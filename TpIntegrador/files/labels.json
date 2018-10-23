@@ -20,9 +20,17 @@
     {
       "code": "EN",
       "values": {
-        "100": "",
-        "200": "",
-        "300": ""
+        "tittle": "InfoUngs",
+        "btnSearch": "Search",
+        "filters": "Filters",
+        "filter-all":"All",
+        "filter-selection": "Selection",
+        "twitter": "Twitter",
+        "rss": "TN Noticias",
+        "theme": "Theme",
+        "theme-sport": "Sports",
+        "theme-politics": "Politics",
+        "description": "Description",
       }
     }
   ]
