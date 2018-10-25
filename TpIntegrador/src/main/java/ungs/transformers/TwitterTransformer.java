@@ -11,7 +11,7 @@ public class TwitterTransformer implements TransformerInformation<TwitterObjectD
     public InformationDto transform(TwitterObjectDto twitterObjectDto) {
         Theme theme = null;
         String description = twitterObjectDto.getDescription();
-        return new InformationDto(Origin.TWITTER, theme, description, twitterObjectDto.getDate().toString());
+        return new InformationDto("", Origin.TWITTER, theme, description, twitterObjectDto.getDate().toString());
     }
 
 }

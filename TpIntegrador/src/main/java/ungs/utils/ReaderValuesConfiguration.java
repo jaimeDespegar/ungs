@@ -32,4 +32,8 @@ public class ReaderValuesConfiguration {
         return mapValues;
     }
 
+    public static Map<String, String> getValuesProperties(String pathFile) {
+        return new ReaderValuesConfiguration(pathFile).mapValues;
+    }
+
 }

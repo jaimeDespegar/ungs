@@ -23,7 +23,7 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
         this.transformer = transformer;
         this.connector = connector;
         this.configuration = configuration;
-      //  this.connector.setConfiguration(getConfiguration(configurationFile));
+      //  this.connector.setConfiguration(getMongoConfiguration(configurationFile));
         this.connector.initConnection();
     }
 

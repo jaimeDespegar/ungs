@@ -1,0 +1,18 @@
+
+{
+  "lenguajes": [
+    {
+      "code": "ES",
+      "values": {
+        "": "Error de Configuracion: %s",
+        "200": null
+      }
+    },
+    {
+      "code": "",
+      "values": {
+        "100": "Error of Configuration: %s"
+      }
+    }
+  ]
+}

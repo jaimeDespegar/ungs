@@ -9,7 +9,7 @@ public class RssTransformer implements TransformerInformation<RssItemDto>{
 
     @Override
     public InformationDto transform(RssItemDto rssItemDto) {
-        return new InformationDto(Origin.RSS, null, rssItemDto.getDescription(), DateTime.now().toString());
+        return new InformationDto("",Origin.RSS, null, rssItemDto.getDescription(), DateTime.now().toString());
     }
 
 }

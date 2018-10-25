@@ -21,7 +21,7 @@ public class MongoDbCacheClient implements CacheClient<InformationDto> {
 
     public MongoDbCacheClient() {
         this.database = connection.getMongoDatabase();
-        this.collection = database.getCollection("mycoll");
+        this.collection = connection.getMongoCollection();
     }
 
     @Override
@@ -38,17 +38,14 @@ public class MongoDbCacheClient implements CacheClient<InformationDto> {
 
     @Override
     public void update(InformationDto informationDto) {
-        Document document = new Document("x", 1);
-        collection.insertOne(document);
-        document.append("x", 2).append("y", 3);
-        // se hace el replace , pero necesita el id del documento!
-        collection.replaceOne(Filters.eq("_id", document.get("_id")), document);
+        Document document = Document.parse(mapper.toJson(informationDto));
+        collection.replaceOne(Filters.eq("id", document.get("id")), document);
     }
 
     @Override
     public void delete(InformationDto informationDto) {
-        Document document = Document.parse(informationDto.toString()); // necesito el id del documento!
-        collection.deleteOne(document);
+        Document document = Document.parse(mapper.toJson(informationDto));
+        collection.deleteOne(Filters.eq("id", document.get("id")));
     }
 
     @Override

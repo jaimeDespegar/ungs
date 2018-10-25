@@ -2,7 +2,7 @@ package ungs.model;
 
 import com.google.common.collect.Maps;
 import ungs.utils.ConfigUtils;
-
+import ungs.utils.ReaderValuesConfiguration;
 import java.util.Map;
 
 public class Configuration {
@@ -10,6 +10,10 @@ public class Configuration {
     private Map<String, String> values = Maps.newHashMap();
 
     public Configuration() {}
+
+    public Configuration(String pathFile) {
+        this.values = ReaderValuesConfiguration.getValuesProperties(pathFile);
+    }
 
     public Configuration(Map configurations) {
         this.values = configurations;

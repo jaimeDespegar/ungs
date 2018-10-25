@@ -4,16 +4,26 @@ import ungs.themes.Theme;
 
 public class InformationDto {
 
+    private String id;
     private Origin origin;
     private Theme  theme;
     private String description;
     private String date;
 
-    public InformationDto(Origin origin, Theme theme, String description, String date) {
+    public InformationDto(String id, Origin origin, Theme theme, String description, String date) {
+        this.id = id;
         this.origin = origin;
         this.theme = theme;
         this.description = description;
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Origin getOrigin() {

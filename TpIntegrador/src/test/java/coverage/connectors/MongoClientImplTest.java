@@ -18,7 +18,7 @@ public class MongoClientImplTest {
     @BeforeClass
     public void init() {
         this.instance = new MongoDbCacheClient();
-        this.info = new InformationDto(Origin.TWITTER, Theme.DEPORTES, "test", DateTime.now().toString());
+        this.info = new InformationDto("1", Origin.TWITTER, Theme.DEPORTES, "test", DateTime.now().toString());
     }
 
     @BeforeMethod
@@ -49,7 +49,15 @@ public class MongoClientImplTest {
         this.instance.insert(info);
         info.setDescription("descripcion editada ok!");
         this.instance.update(info);
-        Assert.assertEquals(this.instance.readAll().get(0).getDescription(), "description editada ok!");
+        Assert.assertEquals(this.instance.readAll().get(0).getDescription(), "descripcion editada ok!");
+    }
+
+    @Test
+    public void dalete_whenContainsOneElement_thenDeleteIsOk() {
+        this.instance.insert(info);
+        Assert.assertTrue(this.instance.readAll().size() == 1);
+        this.instance.delete(info);
+        Assert.assertTrue(this.instance.readAll().isEmpty());
     }
 
 }
