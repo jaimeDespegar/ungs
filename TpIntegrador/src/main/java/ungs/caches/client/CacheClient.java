@@ -9,5 +9,6 @@ public interface CacheClient<T> {
     void delete(T t);
     void cleanCache();
     List<T> readAll();
+    List<T> findByOrigin(String origin);
 
 }

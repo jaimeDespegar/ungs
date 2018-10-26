@@ -17,18 +17,19 @@ public class MongoDbCacheClient implements CacheClient<InformationDto> {
     private MongoDBConnector connection = MongoDBConnector.getConnector();
     private MongoDatabase database;
     private MongoCollection<Document> collection;
-    private JsonMapper mapper = JsonMapper.getMapper();
+    private MongoClientHelper helper;
 
     public MongoDbCacheClient() {
         this.database = connection.getMongoDatabase();
         this.collection = connection.getMongoCollection();
+        this.helper = new MongoClientHelper();
     }
 
     @Override
     public void insert(InformationDto informationDto) {
         try {
-            Document obj = Document.parse(mapper.toJson(informationDto));
-            collection.insertOne(obj);
+            Document document = helper.toDocument(informationDto);
+            collection.insertOne(document);
         } catch (MongoServerException mse) {
             mse.printStackTrace();
         } catch (Exception e) {
@@ -38,22 +39,27 @@ public class MongoDbCacheClient implements CacheClient<InformationDto> {
 
     @Override
     public void update(InformationDto informationDto) {
-        Document document = Document.parse(mapper.toJson(informationDto));
+        Document document = helper.toDocument(informationDto);
         collection.replaceOne(Filters.eq("id", document.get("id")), document);
     }
 
     @Override
     public void delete(InformationDto informationDto) {
-        Document document = Document.parse(mapper.toJson(informationDto));
-        collection.deleteOne(Filters.eq("id", document.get("id")));
+        Document document = helper.toDocument(informationDto);
+        collection.deleteOne(Filters.eq("id", document.get("id"))).wasAcknowledged();
     }
 
     @Override
     public List<InformationDto> readAll() {
         List<Document> list = collection.find().into(Lists.newArrayList());
-        return list.stream()
-                   .map(i -> (InformationDto) mapper.getValue(i.toJson(), InformationDto.class))
-                   .collect(Collectors.toList());
+        return helper.toInformation(list);
+    }
+
+    @Override
+    public List<InformationDto> findByOrigin(String origin) {
+        List<Document> listFilteredByOrigin = collection.find(Filters.eq("origin", origin))
+                                                        .into(Lists.newArrayList());
+        return helper.toInformation(listFilteredByOrigin);
     }
 
     public void cleanCache() {

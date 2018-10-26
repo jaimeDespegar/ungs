@@ -5,19 +5,20 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ungs.caches.client.MongoDbCacheClient;
+import ungs.caches.client.CacheClient;
 import ungs.model.InformationDto;
 import ungs.model.Origin;
 import ungs.themes.Theme;
+import java.util.List;
 
 public class MongoClientImplTest {
 
-    private MongoDbCacheClient instance;
+    private CacheClient<InformationDto> instance;
     private InformationDto info;
 
     @BeforeClass
     public void init() {
-        this.instance = new MongoDbCacheClient();
+        this.instance = new StubCacheClient();
         this.info = new InformationDto("1", Origin.TWITTER, Theme.DEPORTES, "test", DateTime.now().toString());
     }
 

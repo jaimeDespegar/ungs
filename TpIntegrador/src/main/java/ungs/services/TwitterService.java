@@ -1,14 +1,16 @@
 package ungs.services;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.codec.binary.StringUtils;
 import ungs.connectors.TwitterConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.ConditionFilter;
 import ungs.model.Configuration;
+import ungs.model.InformationDto;
 import ungs.themes.Theme;
 import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, TwitterTransformer> {
@@ -21,11 +23,6 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
         return this.connector.isAvailable();
     }
 
-    public List<TwitterObjectDto> getTweetsByTheme(Theme theme) {
-        List<TwitterObjectDto> tweets = Lists.newArrayList();
-        return tweets;
-    }
-
     public List<TwitterObjectDto> getTweetsByUser(String user) {
         return this.connector.findByUser(user);
     }
@@ -35,7 +32,22 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
     }
 
     public List<TwitterObjectDto> getAllTweets() {
-        return this.connector.find("");
+        List<String> allUsers = this.getAllUsersNames();
+        List<TwitterObjectDto> tweets = Lists.newArrayList();
+        allUsers.forEach(user -> tweets.addAll(this.connector.findByUser(user)));
+        return tweets;
+    }
+
+    @Override
+    public List<InformationDto> getData() {
+        return this.getInformation(getAllTweets());
+    }
+
+    private List<String> getAllUsersNames() {
+        List<String> allUsers = Lists.newArrayList();
+        allUsers.addAll(Arrays.asList(configuration.get(ConfigUtils.TWITTER_USERS_POLITICS).split(",")));
+        allUsers.addAll(Arrays.asList(configuration.get(ConfigUtils.TWITTER_USERS_SPORT).split(",")));
+        return allUsers;
     }
 
 }

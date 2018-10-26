@@ -6,13 +6,12 @@ import ungs.connectors.AbstractConnector;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.transformers.TransformerInformation;
-import ungs.utils.ReaderValuesConfiguration;
-import ungs.utils.exceptions.ConfigurationException;
+import ungs.utils.ConfigUtils;
+
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class Service<C extends AbstractConnector, OBJECT, T extends TransformerInformation<OBJECT>> {
+public abstract class Service<C extends AbstractConnector, OBJECT, T extends TransformerInformation<OBJECT>> implements ServiceData<InformationDto> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     protected C connector;
@@ -23,22 +22,16 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
         this.transformer = transformer;
         this.connector = connector;
         this.configuration = configuration;
-      //  this.connector.setConfiguration(getMongoConfiguration(configurationFile));
+        this.connector.setConfiguration(configuration);
         this.connector.initConnection();
-    }
-
-    private Configuration getConfiguration(String pathConfiguration) {
-        Map map = null;
-        try {
-           map = new ReaderValuesConfiguration(pathConfiguration).getValues();
-        } catch (ConfigurationException ce) {
-            this.logger.warn("El servicio no puede levantarse porque ocurrio el siguiente error: " + ce.getMessage());
-        }
-        return new Configuration(map);
     }
 
     public List<InformationDto> getInformation(List<OBJECT> objects) {
         return objects.stream().map(obj -> transformer.transform(obj)).collect(Collectors.toList());
+    }
+
+    public String getOrigin() {
+        return configuration.get(ConfigUtils.SERVICE_NAME);
     }
 
 }

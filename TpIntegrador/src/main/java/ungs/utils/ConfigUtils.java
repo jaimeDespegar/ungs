@@ -15,13 +15,15 @@ public abstract class ConfigUtils {
     public static Integer DEFAULT_COUNT = 10;
 
     // KEYS
+
+    public static final String SERVICE_NAME = "provider.service.name";
     // TWITTER
     public static final String TWITTER_API_KEY = "twitter.user.apiKey";
     public static final String TWITTER_API_SECRET_KEY = "twitter.user.apiSecretKey";
     public static final String TWITTER_TOKEN_KEY = "twitter.user.tokenKey";
     public static final String TWITTER_TOKEN_SECRET_KEY = "twitter.user.tokenSecretKey";
-    public static final String TWITTER_USERS_SPORT = "twitter.themes.sport.users";
-    public static final String TWITTER_USERS_POLITICS = "twitter.themes.politics.users";
+    public static final String TWITTER_USERS_SPORT = "twitter.theme.sport";
+    public static final String TWITTER_USERS_POLITICS = "twitter.theme.politics";
     public static final String TWITTER_COUNT = "twitter.tweets.count";
     // RSS
 

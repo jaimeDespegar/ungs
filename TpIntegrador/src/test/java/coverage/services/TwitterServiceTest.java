@@ -8,6 +8,8 @@ import ungs.dto.TwitterObjectDto;
 import ungs.model.Configuration;
 import ungs.services.TwitterService;
 import ungs.transformers.TwitterTransformer;
+import ungs.utils.ConfigUtils;
+
 import java.util.List;
 
 public class TwitterServiceTest {
@@ -16,7 +18,7 @@ public class TwitterServiceTest {
 
     @BeforeClass
     public void init() {
-        this.service = new TwitterService(new TwitterTransformer(), new TwitterConnector(), new Configuration());
+        this.service = new TwitterService(new TwitterTransformer(), new TwitterConnector(), new Configuration(ConfigUtils.TWITTER_FILE));
     }
 
     @Test
