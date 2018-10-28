@@ -26,27 +26,26 @@ public class MongoDbCacheClient implements CacheClient<InformationDto> {
     }
 
     @Override
-    public void insert(InformationDto informationDto) {
+    public boolean insert(InformationDto informationDto) {
         try {
             Document document = helper.toDocument(informationDto);
             collection.insertOne(document);
-        } catch (MongoServerException mse) {
-            mse.printStackTrace();
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public void update(InformationDto informationDto) {
+    public boolean update(InformationDto informationDto) {
         Document document = helper.toDocument(informationDto);
-        collection.replaceOne(Filters.eq("id", document.get("id")), document);
+        return collection.replaceOne(Filters.eq("id", document.get("id")), document).wasAcknowledged();
     }
 
     @Override
-    public void delete(InformationDto informationDto) {
+    public boolean delete(InformationDto informationDto) {
         Document document = helper.toDocument(informationDto);
-        collection.deleteOne(Filters.eq("id", document.get("id"))).wasAcknowledged();
+        return collection.deleteOne(Filters.eq("id", document.get("id"))).wasAcknowledged();
     }
 
     @Override

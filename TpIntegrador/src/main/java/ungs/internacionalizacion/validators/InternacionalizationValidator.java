@@ -2,18 +2,18 @@ package ungs.internacionalizacion.validators;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import ungs.internacionalizacion.LenguajeConfigurationDto;
+import ungs.internacionalizacion.LenguajeConfiguration;
 import java.util.List;
 import java.util.Map;
 
 public class InternacionalizationValidator {
 
 
-    public boolean isValidate(List<LenguajeConfigurationDto> list) {
+    public boolean isValidate(List<LenguajeConfiguration> list) {
         return CollectionUtils.isNotEmpty(list) && isSameSizeValuesAtAllLenguajes(list) && isValidValues(list);
     }
 
-    public boolean isValidValues(List<LenguajeConfigurationDto> list) {
+    public boolean isValidValues(List<LenguajeConfiguration> list) {
         return list.stream()
                    .anyMatch(i-> StringUtils.isNotBlank(i.getLenguaje()) && !isEmptyValues(i.getValues()));
     }
@@ -23,7 +23,7 @@ public class InternacionalizationValidator {
                mapValues.values().stream().anyMatch(value -> StringUtils.isBlank((String)value));
     }
 
-    private boolean isSameSizeValuesAtAllLenguajes(List<LenguajeConfigurationDto> listLenguajes) {
+    private boolean isSameSizeValuesAtAllLenguajes(List<LenguajeConfiguration> listLenguajes) {
         Integer sizeFirstValues = listLenguajes.get(0).getValues().size();
         return listLenguajes.stream().anyMatch(i->i.getValues().size()!=sizeFirstValues);
     }

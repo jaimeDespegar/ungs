@@ -4,13 +4,13 @@ import java.util.List;
 
 public class ResourceBundleLenguaje {
 
-    private List<LenguajeConfigurationDto> list;
+    private List<LenguajeConfiguration> list;
 
-    public ResourceBundleLenguaje(LenguajeDto lenguajeDto) {
+    public ResourceBundleLenguaje(LenguajeValue lenguajeDto) {
         
     }
 
-    public LenguajeConfigurationDto getLenguajeConfigurationDTO(LenguajeDto lenguajeDto) {
+    public LenguajeConfiguration getLenguajeConfigurationDTO(LenguajeValue lenguajeDto) {
         return this.list.stream().filter(l -> l.getLenguaje().equalsIgnoreCase(lenguajeDto.getLenguaje()))
                                  .findFirst()
                                  .orElseThrow(RuntimeException::new);

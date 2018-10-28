@@ -16,22 +16,23 @@ public class StubCacheClient implements CacheClient<InformationDto> {
     }
 
     @Override
-    public void insert(InformationDto informationDto) {
-        this.listDB.add(informationDto);
+    public boolean insert(InformationDto informationDto) {
+        return this.listDB.add(informationDto);
     }
 
     @Override
-    public void update(InformationDto informationDto) {
+    public boolean update(InformationDto informationDto) {
         Optional<InformationDto> info = listDB.stream().filter(i->i.getId().equals(informationDto.getId())).findFirst();
         info.ifPresent(i->{
             this.listDB.remove(i);
             this.listDB.add(informationDto);
         });
+        return info.isPresent();
     }
 
     @Override
-    public void delete(InformationDto informationDto) {
-        this.listDB.remove(informationDto);
+    public boolean delete(InformationDto informationDto) {
+        return this.listDB.remove(informationDto);
     }
 
     @Override

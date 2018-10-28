@@ -9,9 +9,8 @@ import ungs.caches.client.CacheClient;
 import ungs.model.InformationDto;
 import ungs.model.Origin;
 import ungs.themes.Theme;
-import java.util.List;
 
-public class MongoClientImplTest {
+public class CacheClientTest {
 
     private CacheClient<InformationDto> instance;
     private InformationDto info;
@@ -29,17 +28,16 @@ public class MongoClientImplTest {
 
     @Test
     public void insertTest_withValues_thenInsertOk() {
-        this.instance.insert(info);
+        Assert.assertTrue(this.instance.insert(info));
         InformationDto infoInserted = this.instance.readAll().get(0);
         Assert.assertEquals(infoInserted.getOrigin(), Origin.TWITTER);
         Assert.assertEquals(infoInserted.getTheme(), Theme.DEPORTES);
         Assert.assertEquals(infoInserted.getDescription(), "test");
     }
 
-
     @Test
     public void clean_whenIsNotEmpty_DeleteAll() {
-        this.instance.insert(info);
+        Assert.assertTrue(this.instance.insert(info));
         Assert.assertEquals(this.instance.readAll().size(), 1);
         this.instance.cleanCache();
         Assert.assertTrue(this.instance.readAll().isEmpty());
@@ -47,17 +45,15 @@ public class MongoClientImplTest {
 
     @Test
     public void update_whenContainsElement_thenUpdatedIsOk() {
-        this.instance.insert(info);
+        Assert.assertTrue(this.instance.insert(info));
         info.setDescription("descripcion editada ok!");
-        this.instance.update(info);
-        Assert.assertEquals(this.instance.readAll().get(0).getDescription(), "descripcion editada ok!");
+        Assert.assertTrue(this.instance.update(info));
     }
 
     @Test
     public void dalete_whenContainsOneElement_thenDeleteIsOk() {
-        this.instance.insert(info);
-        Assert.assertTrue(this.instance.readAll().size() == 1);
-        this.instance.delete(info);
+        Assert.assertTrue(this.instance.insert(info));
+        Assert.assertTrue(this.instance.delete(info));
         Assert.assertTrue(this.instance.readAll().isEmpty());
     }
 

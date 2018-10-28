@@ -1,6 +1,6 @@
 package ungs.internacionalizacion;
 
-public class LenguajeDto {
+public class LenguajeValue {
 
     private String lenguaje;
 

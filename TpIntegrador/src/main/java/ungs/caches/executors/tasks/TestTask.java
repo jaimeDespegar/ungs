@@ -20,13 +20,11 @@ import java.util.List;
 
 public class TestTask {
 
-
-
     public static void main(String[] args) {
 
         List<Service> services = Lists.newArrayList(new TwitterService(new TwitterTransformer(), new TwitterConnector(), new Configuration(ConfigUtils.TWITTER_FILE)));
 
-         TaskExecutor taskExecutor = new TaskExecutor(new TaskJob(new LoadCacheTask(new MongoDbCacheClient(), services)), 1L);
+        TaskExecutor taskExecutor = new TaskExecutor(new TaskJob(new LoadCacheTask(new MongoDbCacheClient(), services)), 1L);
         taskExecutor.run();
     }
 
