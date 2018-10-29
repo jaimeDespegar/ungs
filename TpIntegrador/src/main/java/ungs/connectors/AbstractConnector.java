@@ -8,7 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ungs.helpers.ConnectionHelper;
 import ungs.model.Configuration;
-import ungs.utils.exceptions.ConnectionException;
+import ungs.utils.ConfigUtils;
+
 import java.io.IOException;
 
 public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
@@ -51,7 +52,9 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
     }
 
     protected HttpResponse connectionResponse(String url) throws IOException {
-        Response execute = Request.Get(url).execute();
+        Response execute = Request.Get(url)
+                                  .connectTimeout(configuration.getNumber(ConfigUtils.SERVICE_TIMEOUT))
+                                  .execute();
         return execute.returnResponse();
     }
 
@@ -60,4 +63,5 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
     }
 
     public abstract void initConnection();
+
 }

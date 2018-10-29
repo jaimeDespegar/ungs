@@ -1,7 +1,5 @@
 package ungs.connectors;
 
-import ungs.model.Configuration;
-
 import java.util.List;
 
 public interface Connector<T> {

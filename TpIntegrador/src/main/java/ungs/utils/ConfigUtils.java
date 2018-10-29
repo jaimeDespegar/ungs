@@ -12,11 +12,12 @@ public abstract class ConfigUtils {
     public static final String ERRORS_FILE = FOLDER_PATH + "errors.json";
     public static final String LABELS_FILE = FOLDER_PATH + "labels.json";
 
-    public static Integer DEFAULT_COUNT = 10;
-
     // KEYS
-
+    public static Integer DEFAULT_COUNT = 10;
     public static final String SERVICE_NAME = "provider.service.name";
+    public static final String SERVICE_TIMEOUT = "service.timeout";
+    public static final String SERVICE_RETRIES_COUNT = "service.retries.count";
+
     // TWITTER
     public static final String TWITTER_API_KEY = "twitter.user.apiKey";
     public static final String TWITTER_API_SECRET_KEY = "twitter.user.apiSecretKey";

@@ -23,7 +23,7 @@ public class TwitterServiceTest {
 
     @Test
     public void getTweets() {
-        List<TwitterObjectDto> tweets = this.service.getTweetsByUser("PolloVignolo");//ChavoFuchs barba");//
+        List<TwitterObjectDto> tweets = this.service.getAllTweets(); //.getTweetsByUser("PolloVignolo");//ChavoFuchs barba");//
         System.out.println("size " + tweets.size());
         tweets.forEach(i->System.out.println(i));
     }
