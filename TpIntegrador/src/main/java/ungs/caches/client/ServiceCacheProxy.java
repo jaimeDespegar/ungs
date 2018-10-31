@@ -25,7 +25,9 @@ public class ServiceCacheProxy implements ServiceData<InformationDto> {
             if (CollectionUtils.isNotEmpty(list)) {
                 result.addAll(list);
             } else {
-                result.addAll(s.getData());
+                List<InformationDto> values = s.getData();
+                values.forEach(i -> cacheClient.insert(i));
+                result.addAll(values);
             }
         }
         return result;

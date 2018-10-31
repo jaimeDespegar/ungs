@@ -1,5 +1,7 @@
 package ungs.caches.executors.tasks.impl;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import ungs.caches.client.CacheClient;
 import ungs.model.InformationDto;
 
@@ -24,7 +26,9 @@ public class CleanCacheTask extends CacheTask {
     }
 
     private boolean hasAValidPeriod(InformationDto informationDto) {
-        return true;
+        DateTime date = DateTime.parse(informationDto.getDate());
+        Duration duration = new Duration(date, DateTime.now());
+        return duration.getStandardMinutes() <= minutesOfVigency;
     }
 
 }

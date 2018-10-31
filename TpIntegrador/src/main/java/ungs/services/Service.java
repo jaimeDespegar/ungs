@@ -2,6 +2,7 @@ package ungs.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ungs.circuitBreaker.ConnectorProxy;
 import ungs.connectors.AbstractConnector;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
@@ -16,7 +17,9 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     protected C connector;
     protected T transformer;
+    protected ConnectorProxy proxy;
     protected Configuration configuration;
+
 
     public Service(T transformer, C connector, Configuration configuration) {
         this.transformer = transformer;
@@ -30,8 +33,16 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
         return objects.stream().map(obj -> transformer.transform(obj)).collect(Collectors.toList());
     }
 
+    public boolean isEnabled() {
+        return connector.isAvailable();
+    }
+
     public String getOrigin() {
         return configuration.get(ConfigUtils.SERVICE_NAME);
+    }
+
+    public ConnectorProxy getProxy() {
+        return proxy;
     }
 
 }

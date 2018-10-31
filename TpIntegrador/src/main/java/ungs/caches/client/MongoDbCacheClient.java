@@ -1,16 +1,13 @@
 package ungs.caches.client;
 
 import com.google.common.collect.Lists;
-import com.mongodb.MongoServerException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import ungs.caches.connection.MongoDBConnector;
 import ungs.model.InformationDto;
-import ungs.utils.JsonMapper;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MongoDbCacheClient implements CacheClient<InformationDto> {
 

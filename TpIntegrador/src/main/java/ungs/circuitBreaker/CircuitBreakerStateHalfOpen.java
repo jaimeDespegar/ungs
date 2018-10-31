@@ -6,19 +6,23 @@ import java.util.List;
 
 public class CircuitBreakerStateHalfOpen<T> implements CircuitBreakerState {
 
-    private boolean isConnectorOk = false;
+    private CircuitBreakerState nextState = null;
 
     @Override
     public List<T> doAction(Connector connector) {
-        return Lists.newArrayList();
+        List<T> result = Lists.newArrayList();
+        try {
+            result = connector.find("");
+            nextState = new CircuitBreakerStateClose(2);
+        } catch (Exception e) {
+            nextState = new CircuitBreakerStateOpen();
+        }
+        return result;
     }
 
     @Override
     public CircuitBreakerState next() {
-        if(isConnectorOk) {
-            return new CircuitBreakerStateClose(2);
-        }
-        return new CircuitBreakerStateOpen();
+        return nextState;
     }
 
 }
