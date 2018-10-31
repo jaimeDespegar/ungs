@@ -6,10 +6,8 @@ import ungs.dto.TwitterObjectDto;
 import ungs.filters.ConditionFilter;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
-import ungs.themes.Theme;
 import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +16,12 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
     public TwitterService(TwitterTransformer transformer, TwitterConnector connector, Configuration configuration) {
         super(transformer, connector, configuration);
     }
+
+    public TwitterService(Configuration configuration) {
+        super(new TwitterTransformer(), new TwitterConnector(), configuration);
+    }
+
+    public TwitterService(){}
 
     public boolean isOkServiceTwitter() {
         return this.connector.isAvailable();

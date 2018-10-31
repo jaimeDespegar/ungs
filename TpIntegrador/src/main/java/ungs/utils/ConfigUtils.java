@@ -6,7 +6,8 @@ public abstract class ConfigUtils {
 
     // FILES
     public static final String FOLDER_PATH = "files" + File.separator;
-    public static final String RSS_FILE     = FOLDER_PATH + "rss.properties";
+    public static final String CONFIG_FILE = FOLDER_PATH + "configuration.properties";
+    public static final String RSS_FILE = FOLDER_PATH + "rss.properties";
     public static final String TWITTER_FILE = FOLDER_PATH + "twitter.properties";
     public static final String MONGO_FILE = FOLDER_PATH + "mongo.properties";
     public static final String ERRORS_FILE = FOLDER_PATH + "errors.json";
@@ -17,6 +18,10 @@ public abstract class ConfigUtils {
     public static final String SERVICE_NAME = "provider.service.name";
     public static final String SERVICE_TIMEOUT = "service.timeout";
     public static final String SERVICE_RETRIES_COUNT = "service.retries.count";
+    public static final String THEMES = "themes";
+    public static final String SERVICE = "services";
+    public static final String PACKAGE = "service.package.";
+    public static final String LENGUAJE = "lenguaje";
 
     // TWITTER
     public static final String TWITTER_API_KEY = "twitter.user.apiKey";

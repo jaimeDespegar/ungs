@@ -53,7 +53,7 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
 
     protected HttpResponse connectionResponse(String url) throws IOException {
         Response execute = Request.Get(url)
-                                  .connectTimeout(configuration.getNumber(ConfigUtils.SERVICE_TIMEOUT))
+                                //  .connectTimeout(configuration.getNumber(ConfigUtils.SERVICE_TIMEOUT))
                                   .execute();
         return execute.returnResponse();
     }

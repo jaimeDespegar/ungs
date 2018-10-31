@@ -3,17 +3,17 @@ package ungs.dto;
 import com.google.common.collect.Lists;
 import java.util.List;
 
-public class ThemeDto {
+public class Theme {
 
     private String value;
     private List<String> subValues;
 
-    public ThemeDto() {
+    public Theme() {
         this.value = "";
         this.subValues = Lists.newArrayList();
     }
 
-    public ThemeDto(String value, List<String> subValues) {
+    public Theme(String value, List<String> subValues) {
         this.value = value;
         this.subValues = subValues;
     }

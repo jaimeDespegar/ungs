@@ -4,6 +4,10 @@ public class LenguajeValue {
 
     private String lenguaje;
 
+    public LenguajeValue(String value) {
+        this.lenguaje = value;
+    }
+
     public String getLenguaje() {
         return lenguaje;
     }

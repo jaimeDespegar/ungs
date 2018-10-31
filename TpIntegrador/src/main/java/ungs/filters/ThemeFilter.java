@@ -1,13 +1,13 @@
 package ungs.filters;
 
-import ungs.dto.ThemeDto;
+import ungs.dto.Theme;
 
 public abstract class ThemeFilter implements Filter{
 
-    private ThemeDto themeDto;
+    private Theme theme;
 
-    public ThemeFilter(ThemeDto themeDto) {
-        this.themeDto = themeDto;
+    public ThemeFilter(Theme theme) {
+        this.theme = theme;
     }
 
 }

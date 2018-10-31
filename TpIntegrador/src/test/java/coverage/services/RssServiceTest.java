@@ -21,7 +21,7 @@ public class RssServiceTest {
         this.service = new RssService(new RssTransformer(), new RssConnector(), new Configuration());
     }
 
-    @Test
+/*    @Test
     public void isServiceRss_whenIsOk_thenReturnTrue() {
         assertTrue(this.service.isOkServiceRss());
     }
@@ -48,6 +48,6 @@ public class RssServiceTest {
         List<RssItemDto> items = this.service.getAllItems();
         //items.forEach(i->System.out.println("item " + i));
         assertEquals(items.size(), 20);
-    }
+    }*/
 
 }

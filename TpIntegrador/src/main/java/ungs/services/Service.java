@@ -8,7 +8,6 @@ import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.transformers.TransformerInformation;
 import ungs.utils.ConfigUtils;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,6 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
     protected ConnectorProxy proxy;
     protected Configuration configuration;
 
-
     public Service(T transformer, C connector, Configuration configuration) {
         this.transformer = transformer;
         this.connector = connector;
@@ -28,6 +26,8 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
         this.connector.setConfiguration(configuration);
         this.connector.initConnection();
     }
+
+    public Service() {}
 
     public List<InformationDto> getInformation(List<OBJECT> objects) {
         return objects.stream().map(obj -> transformer.transform(obj)).collect(Collectors.toList());

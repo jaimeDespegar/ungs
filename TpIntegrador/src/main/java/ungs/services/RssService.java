@@ -15,6 +15,10 @@ public class RssService extends Service<RssConnector, RssItemDto, RssTransformer
         super(transformer, connector, configuration);
     }
 
+    public RssService(Configuration configuration) {
+        super(new RssTransformer(), new RssConnector(), configuration);
+    }
+
     public boolean isOkServiceRss() {
         return this.connector.isAvailable();
     }
@@ -34,4 +38,7 @@ public class RssService extends Service<RssConnector, RssItemDto, RssTransformer
         return this.getInformation(getAllItems());
     }
 
+    public RssService() {
+
+    }
 }
