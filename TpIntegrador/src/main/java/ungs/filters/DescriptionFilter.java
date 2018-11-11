@@ -1,6 +1,8 @@
 package ungs.filters;
 
 import ungs.dto.rss.RssItemDto;
+import ungs.filters.filterInt.Filter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

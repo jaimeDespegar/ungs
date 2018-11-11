@@ -3,9 +3,13 @@ package ungs.utils;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.json.XML;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -26,7 +30,7 @@ public class JsonMapper {
     }
 
     public <T> T getValue(String json, Type type) {
-        return gson.fromJson(json, type);
+        return gson.fromJson (json, type);
     }
 
     public String toJson(Object object) {
@@ -40,6 +44,14 @@ public class JsonMapper {
             return getValue(jsonString, type);
         } catch (IOException e) {
             throw new RuntimeException("Error al mapear XML to JSON", e);
+        }
+    }
+
+    public String toJson(String pathFile) {
+        try {
+            return new JsonParser().parse(new FileReader(pathFile)).getAsString();
+        } catch (FileNotFoundException fnfe) {
+            throw new RuntimeException("Archivo No encontrado", fnfe);
         }
     }
 

@@ -1,6 +1,7 @@
 package ungs.filters;
 
 import ungs.dto.TwitterObjectDto;
+import ungs.filters.filterInt.Filter;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -30,4 +30,11 @@ public class Theme {
         return subValues;
     }
 
+    public void setSubValues(List<String> subValues) {
+        this.subValues = subValues;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

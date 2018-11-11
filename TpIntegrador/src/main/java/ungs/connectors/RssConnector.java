@@ -28,7 +28,7 @@ public class RssConnector extends AbstractConnector<RssItemDto> {
         String url = configuration.get(keyUrl);
         logger.info(String.format("Get Service RSS, Url: %s.", url));
         RssRootDto rssRootDto = JsonMapper.getMapper().getValueFromXml(this.connectionStatus(url), RssRootDto.class);
-        return getListItemsBySizeConfiguration(rssRootDto.getRss().getChannel().getListItems()); // FIXME puede haber NullPointer
+        return getListItemsBySizeConfiguration(rssRootDto.getRss().getChannel().getListItems());
     }
 
     public List<RssItemDto> find(List<String> listUrl) {

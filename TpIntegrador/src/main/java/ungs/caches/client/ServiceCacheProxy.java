@@ -10,27 +10,24 @@ import java.util.List;
 public class ServiceCacheProxy implements ServiceData<InformationDto> {
 
     private CacheClient cacheClient;
-    private List<Service> services;
+    private Service service;
 
-    public ServiceCacheProxy(List<Service> services) {
-        this.services = services;
+    public ServiceCacheProxy() {
         this.cacheClient = new MongoDbCacheClient();
     }
 
     @Override
     public List<InformationDto> getData() {
-        List<InformationDto> result = Lists.newArrayList();
-        for (Service s : services) {
-            List<InformationDto> list = cacheClient.findByOrigin(s.getOrigin());
-            if (CollectionUtils.isNotEmpty(list)) {
-                result.addAll(list);
-            } else {
-                List<InformationDto> values = s.getData();
-                values.forEach(i -> cacheClient.insert(i));
-                result.addAll(values);
-            }
+        List<InformationDto> values = cacheClient.findByOrigin(service.getOrigin());
+        if (CollectionUtils.isEmpty(values)) {
+            values = service.getData();
+            values.forEach(i -> cacheClient.insert(i));
         }
-        return result;
+        return values;
+    }
+
+    public void setService(Service s) {
+        this.service = s;
     }
 
 }

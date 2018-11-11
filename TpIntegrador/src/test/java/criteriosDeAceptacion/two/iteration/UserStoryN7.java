@@ -37,7 +37,7 @@ public class UserStoryN7 {
         this.manager = new ConfigurationManager();
         List<Service> services = Lists.newArrayList(new TwitterService(new TwitterTransformer(), new TwitterConnector(), new Configuration(ConfigUtils.TWITTER_FILE)) ,
                 new RssService(new RssTransformer(), new RssConnector(), new Configuration(ConfigUtils.RSS_FILE)));
-        this.cacheProxy = new ServiceCacheProxy(services);
+        this.cacheProxy = new ServiceCacheProxy();
         this.taskExecutor = new TaskExecutor(new TaskJob(new LoadCacheTask(new MongoDbCacheClient(), services)), 1L);
     }
 

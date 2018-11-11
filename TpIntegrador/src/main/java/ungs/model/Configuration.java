@@ -1,9 +1,12 @@
 package ungs.model;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import ungs.utils.ConfigUtils;
 import ungs.utils.ReaderValuesConfiguration;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Configuration {
 
@@ -29,6 +32,19 @@ public class Configuration {
         } catch (NumberFormatException nfe) {
             return ConfigUtils.DEFAULT_COUNT;
         }
+    }
+
+    public List<String> getKeysStartWith(String s) {
+        return values.keySet()
+                     .stream()
+                     .filter(i->i.startsWith(s))
+                     .collect(Collectors.toList());
+    }
+
+    public List<String> getValuesByListKeys(List<String> keys) {
+        List<String> list = Lists.newArrayList();
+        keys.forEach(key -> list.add(values.get(key)));
+        return list;
     }
 
 }
