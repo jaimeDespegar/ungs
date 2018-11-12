@@ -11,6 +11,7 @@ import ungs.connectors.TwitterConnector;
 import ungs.dto.Theme;
 import ungs.dto.TwitterObjectDto;
 import ungs.dto.rss.RssItemDto;
+import ungs.filters.DescriptionTwitterFilter;
 import ungs.filters.filterInt.Filter;
 import ungs.filters.rss.DescriptionFilterRss;
 import ungs.filters.rss.ThemeFilterRss;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class UserStoryThree {
 
-    private Filter filterDescription, filterThemeSport, filterThemePolitics, filterThemeSportTwitter;
+    private Filter filterDescription, filterDescriptionTwitter, filterThemeSport, filterThemePolitics, filterThemeSportTwitter;
     private List<RssItemDto> itemsRss = Lists.newArrayList();
     private List<TwitterObjectDto> itemsTwitter = Lists.newArrayList();
     @Mock
@@ -35,6 +36,7 @@ public class UserStoryThree {
         rssConnector = mock(RssConnector.class);
         twitterConnector = mock(TwitterConnector.class);
         filterDescription = new DescriptionFilterRss(rssConnector, "Futbol");
+        filterDescriptionTwitter = new DescriptionTwitterFilter("torneo");
         filterThemeSport = new ThemeFilterRss(rssConnector);
         filterThemePolitics = new ThemeFilterRss(rssConnector);
         filterThemeSportTwitter = new ThemeFilterTwitter(twitterConnector);
@@ -44,7 +46,7 @@ public class UserStoryThree {
 
         Date now = DateTime.now().toDate();
         List<String> list = Lists.newArrayList();
-        itemsTwitter.add(new TwitterObjectDto(now, "River vs Boca", "PolloVignolo", list));
+        itemsTwitter.add(new TwitterObjectDto(now, "Torneo Libertadores: River vs Boca", "PolloVignolo", list));
         itemsTwitter.add(new TwitterObjectDto(now, "Mejores oportunidades", "clarin", list));
         itemsTwitter.add(new TwitterObjectDto(now, "Torneo de Basquetball", "TyCSports", list));
 
@@ -74,7 +76,9 @@ public class UserStoryThree {
     @Test
     public void filterByDescription() {
         List<RssItemDto> result = filterDescription.applyFilter(itemsRss);
+        List<TwitterObjectDto> resultTwitter = filterDescriptionTwitter.applyFilter(itemsTwitter);
         Assert.assertEquals(result.size(), 2);
+        Assert.assertEquals(resultTwitter.size(), 2);
     }
 
     @Test

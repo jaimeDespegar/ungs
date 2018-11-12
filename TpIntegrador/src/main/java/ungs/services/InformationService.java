@@ -7,6 +7,8 @@ import ungs.internacionalizacion.LenguajeConfiguration;
 import ungs.internacionalizacion.LenguajeValue;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
+import ungs.model.ViewFilter;
+
 import java.util.List;
 
 public class InformationService {
@@ -63,4 +65,7 @@ public class InformationService {
         this.lenguajeConfiguration = lenguajeConfiguration;
     }
 
+    public void searchByFilters(ViewFilter viewFilter) {
+
+    }
 }
