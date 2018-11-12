@@ -21,8 +21,7 @@ public class ThemeFilterRss extends AbstractFilter<Theme, RssItemDto> {
     }
 
     private String getUrlByTheme(Theme theme) {
-        String property = String.format("rss.theme.%s", theme.getValue());
-        return configuration.get(property);
+        return String.format("rss.theme.%s", theme.getValue());
     }
 
 }

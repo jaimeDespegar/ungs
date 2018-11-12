@@ -13,6 +13,11 @@ public class Theme {
         this.subValues = Lists.newArrayList();
     }
 
+    public Theme(String value) {
+        this.value = value;
+        this.subValues = Lists.newArrayList();
+    }
+
     public Theme(String value, List<String> subValues) {
         this.value = value;
         this.subValues = subValues;

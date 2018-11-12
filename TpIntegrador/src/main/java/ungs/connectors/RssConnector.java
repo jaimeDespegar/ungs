@@ -6,6 +6,7 @@ import org.apache.http.HttpResponse;
 import ungs.dto.rss.RssItemDto;
 import ungs.dto.rss.RssRootDto;
 import ungs.helpers.ConnectionHelper;
+import ungs.model.Configuration;
 import ungs.utils.JsonMapper;
 import java.io.InputStream;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class RssConnector extends AbstractConnector<RssItemDto> {
 
     public RssConnector() {}
+    public RssConnector(Configuration configuration) { this.configuration = configuration;}
 
     @Override
     public void initConnection() {}

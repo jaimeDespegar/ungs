@@ -1,6 +1,5 @@
 package ungs.caches.client;
 
-import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import ungs.model.InformationDto;
 import ungs.services.Service;

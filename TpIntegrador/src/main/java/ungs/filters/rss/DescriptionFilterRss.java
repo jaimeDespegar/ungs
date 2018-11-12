@@ -17,7 +17,7 @@ public class DescriptionFilterRss extends AbstractFilter<RssItemDto, RssItemDto>
 
     @Override
     public List<RssItemDto> applyFilter(List<RssItemDto> filters) {
-        return filters.stream().filter(item -> item.getDescription().equalsIgnoreCase(descrption))
+        return filters.stream().filter(item -> item.getDescription().contains(descrption))
                                .collect(Collectors.toList());
     }
 

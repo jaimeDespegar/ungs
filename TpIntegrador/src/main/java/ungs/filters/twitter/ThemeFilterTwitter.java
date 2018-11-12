@@ -17,7 +17,7 @@ public class ThemeFilterTwitter extends AbstractFilter<Theme, TwitterObjectDto> 
     @Override
     public List<TwitterObjectDto> applyFilter(List<Theme> filters) {
         List<TwitterObjectDto> result = Lists.newArrayList();
-        ThemeHelper.setValuesByTheme(filters, configuration);
+       // TODO ESTO LO TIENE QUE HACER EL SERVICE ANTES ->  ThemeHelper.setValuesByTheme(filters, configuration);
         filters.forEach(i -> result.addAll(ThemeHelper.tweetsByUser(i, connector)));
         return result;
     }

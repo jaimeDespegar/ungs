@@ -10,6 +10,7 @@ public abstract class AbstractFilter<I,O> implements Filter<I,O> {
 
     public AbstractFilter(AbstractConnector connector) {
         this.connector = connector;
+        this.configuration = connector.getConfiguration();
     }
 
 }

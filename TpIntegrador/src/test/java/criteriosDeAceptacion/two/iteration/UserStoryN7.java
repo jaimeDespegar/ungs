@@ -1,7 +1,6 @@
 package criteriosDeAceptacion.two.iteration;
 
 import static org.testng.Assert.*;
-
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
@@ -23,7 +22,6 @@ import ungs.services.TwitterService;
 import ungs.transformers.RssTransformer;
 import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
-
 import java.util.List;
 
 public class UserStoryN7 {
@@ -50,6 +48,7 @@ public class UserStoryN7 {
 
     @Test
     public void testGetDataProxy_whenRssHaveNotCache_thenRssGetDataService() {
+        cacheProxy.setService(new RssService(new RssTransformer(), new RssConnector(), new Configuration(ConfigUtils.RSS_FILE)));
         List<InformationDto> list = cacheProxy.getData();
         assertTrue(true);
     }

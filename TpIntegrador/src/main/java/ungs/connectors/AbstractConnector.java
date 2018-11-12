@@ -62,6 +62,9 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
         this.configuration = configuration;
     }
 
-    public abstract void initConnection();
+    public Configuration getConfiguration() {
+        return configuration;
+    }
 
+    public abstract void initConnection();
 }
