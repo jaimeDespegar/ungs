@@ -3,6 +3,7 @@ package ungs.services;
 import com.google.common.collect.Lists;
 import ungs.connectors.RssConnector;
 import ungs.dto.rss.RssItemDto;
+import ungs.filters.filterFactory.FilterFactory;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.themes.Theme;
@@ -11,12 +12,8 @@ import java.util.List;
 
 public class RssService extends Service<RssConnector, RssItemDto, RssTransformer> {
 
-    public RssService(RssTransformer transformer, RssConnector connector, Configuration configuration) {
-        super(transformer, connector, configuration);
-    }
-
-    public RssService(Configuration configuration) {
-        super(new RssTransformer(), new RssConnector(), configuration);
+    public RssService(RssTransformer transformer, RssConnector connector, FilterFactory filterFactory, Configuration configuration) {
+        super(transformer, connector, filterFactory, configuration);
     }
 
     public boolean isOkServiceRss() {
@@ -38,7 +35,6 @@ public class RssService extends Service<RssConnector, RssItemDto, RssTransformer
         return this.getInformation(getAllItems());
     }
 
-    public RssService() {
+    public RssService() {}
 
-    }
 }

@@ -2,8 +2,8 @@ package ungs.filters.filterInt;
 
 import java.util.List;
 
-public interface Filter<INPUT, OUTPUT > {
+public interface Filter<OUTPUT> {
 
-    List<OUTPUT> applyFilter(List<INPUT> filters);
+    List<OUTPUT> applyFilter();
 
 }

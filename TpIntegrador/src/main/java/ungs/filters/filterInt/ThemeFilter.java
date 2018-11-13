@@ -1,0 +1,23 @@
+package ungs.filters.filterInt;
+
+import com.google.common.collect.Lists;
+import ungs.connectors.AbstractConnector;
+import java.util.List;
+import java.util.function.Consumer;
+
+public abstract class ThemeFilter<I,O> extends AbstractFilter<I,O> {
+
+    public ThemeFilter(AbstractConnector connector, List<I> list) {
+        super(connector, list);
+    }
+
+    @Override
+    public List<O> applyFilter() {
+        List<O> listResult = Lists.newArrayList();
+        listInput.forEach(getConsumerTheme(listResult));
+        return listResult;
+    }
+
+    protected abstract Consumer<I> getConsumerTheme(List<O> result);
+
+}

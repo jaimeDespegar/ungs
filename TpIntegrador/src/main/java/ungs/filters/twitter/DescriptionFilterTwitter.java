@@ -2,23 +2,19 @@ package ungs.filters.twitter;
 
 import ungs.connectors.AbstractConnector;
 import ungs.dto.TwitterObjectDto;
-import ungs.filters.filterInt.AbstractFilter;
+import ungs.filters.filterInt.DescriptionFilter;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
-public class DescriptionFilterTwitter extends AbstractFilter<TwitterObjectDto, TwitterObjectDto> {
-
-    private String descriptionFilter = "";
+public class DescriptionFilterTwitter extends DescriptionFilter<TwitterObjectDto, TwitterObjectDto> {
 
     public DescriptionFilterTwitter(AbstractConnector connector, String descriptionFilter) {
-        super(connector);
-        this.descriptionFilter = descriptionFilter;
+        super(connector, descriptionFilter);
     }
 
     @Override
-    public List<TwitterObjectDto> applyFilter(List<TwitterObjectDto> input) {
-        return input.stream().filter(i -> descriptionFilter.equalsIgnoreCase(i.getDescription()))
-                             .collect(Collectors.toList());
+    protected Predicate<TwitterObjectDto> isContainsDescription(String filterDescription) {
+        return i -> i.getDescription().toLowerCase().contains(filterDescription.toLowerCase());
     }
 
 }

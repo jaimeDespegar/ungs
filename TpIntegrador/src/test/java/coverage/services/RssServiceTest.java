@@ -18,7 +18,7 @@ public class RssServiceTest {
 
     @BeforeClass
     public void init() {
-        this.service = new RssService(new RssTransformer(), new RssConnector(), new Configuration());
+        //this.service = new RssService(new RssTransformer(), new RssConnector(), new Configuration());
     }
 
 /*    @Test

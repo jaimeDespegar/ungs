@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import ungs.connectors.TwitterConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.ConditionFilter;
+import ungs.filters.filterFactory.TwitterFilterFactory;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.transformers.TwitterTransformer;
@@ -13,12 +14,8 @@ import java.util.List;
 
 public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, TwitterTransformer> {
 
-    public TwitterService(TwitterTransformer transformer, TwitterConnector connector, Configuration configuration) {
-        super(transformer, connector, configuration);
-    }
-
-    public TwitterService(Configuration configuration) {
-        super(new TwitterTransformer(), new TwitterConnector(), configuration);
+    public TwitterService(TwitterTransformer transformer, TwitterConnector connector, TwitterFilterFactory factory, Configuration configuration) {
+        super(transformer, connector, factory, configuration);
     }
 
     public TwitterService(){}

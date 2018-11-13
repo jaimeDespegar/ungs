@@ -14,6 +14,8 @@ import ungs.caches.executors.TaskJob;
 import ungs.caches.executors.tasks.impl.LoadCacheTask;
 import ungs.connectors.RssConnector;
 import ungs.connectors.TwitterConnector;
+import ungs.filters.filterFactory.RssFilterFactory;
+import ungs.filters.filterFactory.TwitterFilterFactory;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.services.RssService;
@@ -33,8 +35,9 @@ public class UserStoryN7 {
     @BeforeClass
     public void init() {
         this.manager = new ConfigurationManager();
-        List<Service> services = Lists.newArrayList(new TwitterService(new TwitterTransformer(), new TwitterConnector(), new Configuration(ConfigUtils.TWITTER_FILE)) ,
-                new RssService(new RssTransformer(), new RssConnector(), new Configuration(ConfigUtils.RSS_FILE)));
+        List<Service> services = Lists.newArrayList(new TwitterService(new TwitterTransformer(), new TwitterConnector(),
+                                            new TwitterFilterFactory(new TwitterConnector()), new Configuration(ConfigUtils.TWITTER_FILE)) ,
+                new RssService(new RssTransformer(), new RssConnector(),new RssFilterFactory(new RssConnector()), new Configuration(ConfigUtils.RSS_FILE)));
         this.cacheProxy = new ServiceCacheProxy();
         this.taskExecutor = new TaskExecutor(new TaskJob(new LoadCacheTask(new MongoDbCacheClient(), services)), 1L);
     }
@@ -48,7 +51,8 @@ public class UserStoryN7 {
 
     @Test
     public void testGetDataProxy_whenRssHaveNotCache_thenRssGetDataService() {
-        cacheProxy.setService(new RssService(new RssTransformer(), new RssConnector(), new Configuration(ConfigUtils.RSS_FILE)));
+        cacheProxy.setService(new RssService(new RssTransformer(), new RssConnector(),
+                new RssFilterFactory(new RssConnector()),new Configuration(ConfigUtils.RSS_FILE)));
         List<InformationDto> list = cacheProxy.getData();
         assertTrue(true);
     }

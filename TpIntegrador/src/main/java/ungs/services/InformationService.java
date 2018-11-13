@@ -3,6 +3,7 @@ package ungs.services;
 import com.google.common.collect.Lists;
 import ungs.caches.client.ServiceCacheProxy;
 import ungs.dto.Theme;
+import ungs.filters.FilterManager;
 import ungs.internacionalizacion.LenguajeConfiguration;
 import ungs.internacionalizacion.LenguajeValue;
 import ungs.model.Configuration;
@@ -19,6 +20,7 @@ public class InformationService {
     private ServiceCacheProxy serviceCacheProxy;
     private LenguajeValue lenguajeValue;
     private LenguajeConfiguration lenguajeConfiguration;
+    private FilterManager filterManager;
 
     public InformationService() {
         this.services = Lists.newArrayList();
@@ -65,7 +67,8 @@ public class InformationService {
         this.lenguajeConfiguration = lenguajeConfiguration;
     }
 
-    public void searchByFilters(ViewFilter viewFilter) {
-
+    public List<InformationDto> searchByFilters(ViewFilter viewFilter) {
+        return Lists.newArrayList();
     }
+
 }

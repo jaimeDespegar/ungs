@@ -2,23 +2,18 @@ package ungs.filters.rss;
 
 import ungs.connectors.AbstractConnector;
 import ungs.dto.rss.RssItemDto;
-import ungs.filters.filterInt.AbstractFilter;
-import java.util.List;
-import java.util.stream.Collectors;
+import ungs.filters.filterInt.DescriptionFilter;
+import java.util.function.Predicate;
 
-public class DescriptionFilterRss extends AbstractFilter<RssItemDto, RssItemDto> {
-
-    private String descrption;
+public class DescriptionFilterRss extends DescriptionFilter<RssItemDto, RssItemDto> {
 
     public DescriptionFilterRss(AbstractConnector connector, String filterDescription) {
-        super(connector);
-        this.descrption = filterDescription;
+        super(connector, filterDescription);
     }
 
     @Override
-    public List<RssItemDto> applyFilter(List<RssItemDto> filters) {
-        return filters.stream().filter(item -> item.getDescription().contains(descrption))
-                               .collect(Collectors.toList());
+    protected Predicate<RssItemDto> isContainsDescription(String filterDescription) {
+        return i -> i.getDescription().toLowerCase().contains(filterDescription.toLowerCase());
     }
 
 }
