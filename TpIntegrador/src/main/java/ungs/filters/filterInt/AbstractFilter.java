@@ -1,11 +1,12 @@
 package ungs.filters.filterInt;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import ungs.connectors.AbstractConnector;
 import ungs.model.Configuration;
 import java.util.List;
 
-public abstract class AbstractFilter<I,O> implements Filter<O> {
+public abstract class AbstractFilter<I,O> implements Filter<I,O> {
 
     protected AbstractConnector connector;
     protected Configuration configuration;
@@ -25,5 +26,17 @@ public abstract class AbstractFilter<I,O> implements Filter<O> {
 
     public void setListInput(List<I> listInput) {
         this.listInput = listInput;
+    }
+
+    public List<O> doApplyFilter() {
+        if (CollectionUtils.isNotEmpty(listInput)) {
+
+        }
+        return applyFilter();
+    }
+
+    @Override
+    public List<O> applyFilter(List<I> list) {
+        return null;
     }
 }
