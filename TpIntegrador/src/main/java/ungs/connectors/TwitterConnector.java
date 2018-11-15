@@ -7,8 +7,8 @@ import ungs.dto.TwitterObjectDto;
 import ungs.filters.ConditionFilter;
 import ungs.helpers.TwitterHelper;
 import ungs.utils.ConfigUtils;
+import ungs.utils.ResponseUtil;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
 
@@ -50,15 +50,12 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
     public List<TwitterObjectDto> find(String valueToFind) {
         try {
             List<Status> result = searchtweets(valueToFind);
-            return helper.transformToTwitterModel(result).stream()
-                                                         .limit(COUNT_ELEMENTS)
-                                                         .collect(Collectors.toList());
+            return ResponseUtil.getListItemsBySizeConfiguration(helper.transformToTwitterModel(result), COUNT_ELEMENTS);
         } catch (TwitterException te) {
             logger.error("Mensaje error Connector Twitter.", te);
         }
         return Lists.newArrayList();
     }
-
 
     public List<TwitterObjectDto> findByUser(String user) {
         return this.find("from:" + user);
@@ -79,7 +76,6 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
     public List<Status> searchtweets(String value) throws TwitterException {
         Query query = new Query(value);
         QueryResult result = twitter.search(query);
-        System.out.println("SE HIZO ESTA BUSQUEDA: " + result.getQuery());
         return result.getTweets();
     }
 
