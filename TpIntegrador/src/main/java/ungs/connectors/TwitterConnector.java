@@ -8,11 +8,13 @@ import ungs.filters.ConditionFilter;
 import ungs.helpers.TwitterHelper;
 import ungs.utils.ConfigUtils;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
 
     private Twitter twitter;
     private TwitterHelper helper;
+    private final Integer COUNT_ELEMENTS = configuration.getNumber(ConfigUtils.TWITTER_COUNT);
 
     public TwitterConnector(TwitterHelper helper) {
         this.helper = helper;
@@ -48,9 +50,11 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
     public List<TwitterObjectDto> find(String valueToFind) {
         try {
             List<Status> result = searchtweets(valueToFind);
-            return helper.transformToTwitterModel(result);
+            return helper.transformToTwitterModel(result).stream()
+                                                         .limit(COUNT_ELEMENTS)
+                                                         .collect(Collectors.toList());
         } catch (TwitterException te) {
-            te.printStackTrace(); // TODO hacer algo mas !
+            logger.error("Mensaje error Connector Twitter.", te);
         }
         return Lists.newArrayList();
     }
@@ -72,15 +76,8 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
         return this.find("#" + hashtag);
     }
 
-    public boolean isValidUser() {
-        String urlUserConnection = "ACA TIENE QUE ESTAR ARMADO EL GET PARA VALIDAR EL USUARIO";
-        // TODO MAS PERMISOS/CONFIGURACIONES QUE SE NECESITEN
-        return isServiceOk(urlUserConnection);
-    }
-
     public List<Status> searchtweets(String value) throws TwitterException {
         Query query = new Query(value);
-        query.setCount(configuration.getNumber(ConfigUtils.TWITTER_COUNT));
         QueryResult result = twitter.search(query);
         System.out.println("SE HIZO ESTA BUSQUEDA: " + result.getQuery());
         return result.getTweets();

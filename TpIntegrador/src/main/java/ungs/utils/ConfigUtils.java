@@ -32,6 +32,8 @@ public abstract class ConfigUtils {
     public static final String TWITTER_USERS_POLITICS = "twitter.theme.politics";
     public static final String TWITTER_COUNT = "twitter.tweets.count";
     // RSS
+    public static final String RSS_COUNT = "rss.response.count";
+    public static final String RSS_URL_CONNECTION = "rss.urlConnection";
 
     // MONGO
     public static final String MONGO_HOST = "mongo.host";

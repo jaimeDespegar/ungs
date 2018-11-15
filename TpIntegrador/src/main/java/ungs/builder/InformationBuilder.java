@@ -47,8 +47,7 @@ public class InformationBuilder {
     }
 
     public InformationService build() {
-        ServiceCacheProxy serviceProxy = new ServiceCacheProxy();
-        this.instance.setServiceProxy(serviceProxy);
+        this.instance.setServiceProxy(new ServiceCacheProxy());
         return this.instance;
     }
 
