@@ -1,7 +1,6 @@
 package ungs.connectors;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.http.HttpResponse;
 import ungs.dto.rss.RssItemDto;
 import ungs.dto.rss.RssRootDto;
@@ -10,21 +9,30 @@ import ungs.model.Configuration;
 import ungs.utils.ConfigUtils;
 import ungs.utils.JsonMapper;
 import ungs.utils.ResponseUtil;
-
+import ungs.utils.exceptions.ConfigurationException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RssConnector extends AbstractConnector<RssItemDto> {
 
-    private final Integer COUNT_ELEMENTS = configuration.getNumber(ConfigUtils.RSS_COUNT);
+    private Integer COUNT_ELEMENTS;
     private JsonMapper mapper = JsonMapper.getMapper();
 
     public RssConnector() {}
-    public RssConnector(Configuration configuration) { this.configuration = configuration;}
+
+    public RssConnector(Configuration configuration) {
+        this.configuration = configuration;
+        this.COUNT_ELEMENTS = configuration.getNumber(ConfigUtils.RSS_COUNT);
+    }
 
     @Override
-    public void initConnection() {}
+    public void initConnection() {
+        configuration.getKeysStartWith("rss.theme.").forEach(url -> {
+            if (!isServiceOk(configuration.get(url))) {
+                throw new ConfigurationException(String.format("La url %s es invalida", url));
+            }
+        });
+    }
 
     @Override
     public boolean isAvailable() {

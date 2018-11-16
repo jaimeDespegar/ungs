@@ -1,6 +1,8 @@
 package ungs.builder;
 
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ungs.caches.client.ServiceCacheProxy;
 import ungs.dto.Theme;
 import ungs.internacionalizacion.LenguajeValue;
@@ -14,6 +16,7 @@ import ungs.utils.exceptions.ConfigurationException;
 public class InformationBuilder {
 
     private InformationService instance;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public InformationBuilder() {
         this.instance = new InformationService();
@@ -26,7 +29,8 @@ public class InformationBuilder {
                                   .newInstance(new Configuration(ConfigUtils.FOLDER_PATH + service + ".properties"));
             this.instance.addService(t);
         } catch (Exception e) {
-            throw new ConfigurationException("No existe la clase: " + service);
+            logger.error("Error", e);
+            throw new ConfigurationException("No existe la clase: " + service + " , package " + pathPackage);
         }
         return this;
     }

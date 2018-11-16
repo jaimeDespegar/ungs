@@ -30,7 +30,16 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
         this.connector.initConnection();
     }
 
+    public Service(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
     public Service() {}
+
+    protected void init() {
+        this.connector.setConfiguration(configuration);
+        this.connector.initConnection();
+    }
 
     public List<InformationDto> getInformation(List<OBJECT> objects) {
         return objects.stream().map(obj -> transformer.transform(obj))

@@ -6,6 +6,7 @@ import twitter4j.conf.ConfigurationBuilder;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.ConditionFilter;
 import ungs.helpers.TwitterHelper;
+import ungs.model.Configuration;
 import ungs.utils.ConfigUtils;
 import ungs.utils.ResponseUtil;
 import java.util.List;
@@ -14,13 +15,19 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
 
     private Twitter twitter;
     private TwitterHelper helper;
-    private final Integer COUNT_ELEMENTS = configuration.getNumber(ConfigUtils.TWITTER_COUNT);
+    private Integer COUNT_ELEMENTS;
 
     public TwitterConnector(TwitterHelper helper) {
         this.helper = helper;
     }
 
     public TwitterConnector() {
+        this.helper = new TwitterHelper();
+    }
+
+    public TwitterConnector(Configuration configuration) {
+        this.configuration = configuration;
+        this.COUNT_ELEMENTS = configuration.getNumber(ConfigUtils.TWITTER_COUNT);
         this.helper = new TwitterHelper();
     }
 

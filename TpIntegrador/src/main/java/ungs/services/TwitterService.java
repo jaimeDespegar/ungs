@@ -18,7 +18,13 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
         super(transformer, connector, factory, configuration);
     }
 
-    public TwitterService(){}
+    public TwitterService(Configuration configuration) {
+        super(configuration);
+        this.transformer = new TwitterTransformer();
+        this.connector = new TwitterConnector(configuration);
+        this.filterFactory = new TwitterFilterFactory(connector);
+        this.init();
+    }
 
     public boolean isOkServiceTwitter() {
         return this.connector.isAvailable();
