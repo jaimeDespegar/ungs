@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import ungs.connectors.AbstractConnector;
 import ungs.connectors.RssConnector;
 import ungs.dto.rss.RssItemDto;
+import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.FilterFactory;
 import ungs.filters.filterFactory.RssFilterFactory;
 import ungs.model.Configuration;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class RssService extends Service<AbstractConnector, RssItemDto, RssTransformer> {
 
-    public RssService(RssTransformer transformer, AbstractConnector connector, FilterFactory filterFactory, Configuration configuration) {
-        super(transformer, connector, filterFactory, configuration);
+    public RssService(RssTransformer transformer, AbstractConnector connector, FilterFactory filterFactory, FilterExecutor filterExecutor, Configuration configuration) {
+        super(transformer, connector, filterFactory, filterExecutor, configuration);
     }
 
     public RssService(Configuration configuration) {
@@ -23,6 +24,7 @@ public class RssService extends Service<AbstractConnector, RssItemDto, RssTransf
         this.transformer = new RssTransformer();
         this.connector = new RssConnector(configuration);
         this.filterFactory = new RssFilterFactory(connector);
+        this.filterExecutor = new FilterExecutor();
         this.init();
     }
 

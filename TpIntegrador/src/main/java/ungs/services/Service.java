@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ungs.circuitBreaker.ConnectorProxy;
 import ungs.connectors.AbstractConnector;
+import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.FilterFactory;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
@@ -20,11 +21,13 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
     protected ConnectorProxy proxy;
     protected Configuration configuration;
     protected FilterFactory filterFactory;
+    protected FilterExecutor<OBJECT> filterExecutor;
 
-    public Service(T transformer, C connector, FilterFactory filterFactory, Configuration configuration) {
+    public Service(T transformer, C connector, FilterFactory filterFactory, FilterExecutor filterExecutor, Configuration configuration) {
         this.transformer = transformer;
         this.connector = connector;
         this.filterFactory = filterFactory;
+        this.filterExecutor = filterExecutor;
         this.configuration = configuration;
         this.connector.setConfiguration(configuration);
         this.connector.initConnection();

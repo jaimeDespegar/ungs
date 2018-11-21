@@ -6,6 +6,7 @@ import ungs.caches.executors.TaskExecutor;
 import ungs.caches.executors.TaskJob;
 import ungs.caches.executors.tasks.impl.LoadCacheTask;
 import ungs.connectors.TwitterConnector;
+import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.TwitterFilterFactory;
 import ungs.model.Configuration;
 import ungs.services.Service;
@@ -19,7 +20,7 @@ public class TestTask {
     public static void main(String[] args) {
 
         List<Service> services = Lists.newArrayList(new TwitterService(new TwitterTransformer(), new TwitterConnector(),
-                                 new TwitterFilterFactory(new TwitterConnector()), new Configuration(ConfigUtils.TWITTER_FILE)));
+                                 new TwitterFilterFactory(new TwitterConnector()), new FilterExecutor(), new Configuration(ConfigUtils.TWITTER_FILE)));
         System.out.println("Threads 1 :" + Thread.activeCount());
         TaskExecutor taskExecutor = new TaskExecutor(new TaskJob(new LoadCacheTask(new MongoDbCacheClient(), services)), 1L);
         System.out.println("Threads 2 :" + Thread.activeCount());

@@ -5,7 +5,7 @@ import ungs.dto.rss.RssItemDto;
 import ungs.filters.filterInt.DescriptionFilter;
 import java.util.function.Predicate;
 
-public class DescriptionFilterRss extends DescriptionFilter<RssItemDto, RssItemDto, AllFilterRss> {
+public class DescriptionFilterRss extends DescriptionFilter<RssItemDto, RssItemDto, AllFilterRss, RssItemDto> {
 
     public DescriptionFilterRss(AbstractConnector connector, String filterDescription) {
         super(connector, filterDescription);

@@ -6,7 +6,7 @@ import ungs.dto.rss.RssItemDto;
 import ungs.filters.filterInt.AllFilter;
 import java.util.List;
 
-public class AllFilterRss extends AllFilter<String, RssItemDto> {
+public class AllFilterRss extends AllFilter<String, RssItemDto, RssItemDto> {
 
     public AllFilterRss(AbstractConnector connector) {
         super(connector);

@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ungs.connectors.TwitterConnector;
 import ungs.dto.TwitterObjectDto;
+import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.TwitterFilterFactory;
 import ungs.model.Configuration;
 import ungs.services.TwitterService;
@@ -20,7 +21,7 @@ public class TwitterServiceTest {
     @BeforeClass
     public void init() {
         this.service = new TwitterService(new TwitterTransformer(), new TwitterConnector(), new TwitterFilterFactory(new TwitterConnector()),
-                                          new Configuration(ConfigUtils.TWITTER_FILE));
+                new FilterExecutor(), new Configuration(ConfigUtils.TWITTER_FILE));
     }
 
     @Test

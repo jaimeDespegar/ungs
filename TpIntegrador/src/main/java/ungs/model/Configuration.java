@@ -1,10 +1,7 @@
 package ungs.model;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import ungs.utils.ConfigUtils;
 import ungs.utils.ReaderValuesConfiguration;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +29,7 @@ public class Configuration {
         try {
             return Integer.valueOf(get(key));
         } catch (NumberFormatException nfe) {
-            return ConfigUtils.DEFAULT_COUNT;
+            return 0;
         }
     }
 

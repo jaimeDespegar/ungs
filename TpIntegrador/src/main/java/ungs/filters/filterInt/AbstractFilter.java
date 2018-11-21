@@ -11,6 +11,7 @@ public abstract class AbstractFilter<I,O, P> implements Filter<I,O> {
     protected AbstractConnector connector;
     protected Configuration configuration;
     protected List<P> listInput;
+    protected List<I> result;
 
     public AbstractFilter(AbstractConnector connector) {
         this.connector = connector;
@@ -28,11 +29,15 @@ public abstract class AbstractFilter<I,O, P> implements Filter<I,O> {
         this.listInput = listInput;
     }
 
-    public List<O> doApplyFilter(List<I> input) {
-        if (CollectionUtils.isNotEmpty(input)) {
-            return applyFilter(input);
+    public List<O> doApplyFilter() {
+        if (CollectionUtils.isNotEmpty(result)) {
+            return applyFilter(result);
         }
         return applyFilter();
+    }
+
+    public void setResult(List<I> list) {
+        this.result = list;
     }
 
     @Override

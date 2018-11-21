@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import servicesStub.RssConnectorStub;
 import ungs.connectors.AbstractConnector;
 import ungs.dto.rss.RssItemDto;
+import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.RssFilterFactory;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
@@ -25,7 +26,7 @@ public class UserStoryTwo {
 
     @BeforeMethod
     public void init() {
-        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector), new Configuration(pathFile));
+        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector),new FilterExecutor(), new Configuration(pathFile));
     }
 
 //  Sí se setea el archivo rss-noexists.properties como configuracion en el servicio, la aplicación retorna una ConfigurationException con el mensaje “El archivo de configuración rss-noexists.properties no existe”.
@@ -72,14 +73,14 @@ public class UserStoryTwo {
     public void serviceIsNotOk_whenUrlsAreInvalid() {
         this.valuesConfiguration.put("rss.theme.sport", "http://www.urlOk.com");
         this.valuesConfiguration.put("rss.theme.politics", "http://www.urlError.com");
-        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector), new Configuration(valuesConfiguration));
+        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector), new FilterExecutor(), new Configuration(valuesConfiguration));
     }
 
 //  Sí inició el servicio con la url1 , el servicio se crea correctamente.
     @Test
     public void createService_whenUrlLoadIsOk_thenIsCreationOk() {
         this.valuesConfiguration.put("rss.theme.sport", "http://www.urlOk.com");
-        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector), new Configuration(valuesConfiguration));
+        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector), new FilterExecutor(), new Configuration(valuesConfiguration));
     }
 
 //  Si el valor de la configuración de cantidad de respuesta es 1 devuelvo 1 elemento.
