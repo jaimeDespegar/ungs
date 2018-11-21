@@ -1,5 +1,6 @@
 package ungs.caches.client;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import ungs.model.InformationDto;
 import ungs.services.Service;
@@ -21,6 +22,18 @@ public class ServiceCacheProxy implements ServiceData<InformationDto> {
         if (CollectionUtils.isEmpty(values)) {
             values = service.getData();
             values.forEach(i -> cacheClient.insert(i));
+        }
+        return values;
+    }
+
+    public List<InformationDto> getData(List<Service> services) {
+        List<InformationDto> values = Lists.newArrayList();
+        for(Service s : services) {
+            values.addAll(cacheClient.findByOrigin(s.getOrigin()));
+            if (CollectionUtils.isEmpty(values)) {
+                values.addAll(s.getData());
+                values.forEach(i -> cacheClient.insert(i));
+            }
         }
         return values;
     }

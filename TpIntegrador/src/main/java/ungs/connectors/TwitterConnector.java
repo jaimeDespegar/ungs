@@ -53,11 +53,16 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
         }
     }
 
+
+    public List<TwitterObjectDto> find(String valueToFind, Integer value) {
+        return ResponseUtil.getListItemsBySizeConfiguration(find(valueToFind), value);
+    }
+
     @Override
     public List<TwitterObjectDto> find(String valueToFind) {
         try {
             List<Status> result = searchtweets(valueToFind);
-            return ResponseUtil.getListItemsBySizeConfiguration(helper.transformToTwitterModel(result), COUNT_ELEMENTS);
+            return helper.transformToTwitterModel(result);
         } catch (TwitterException te) {
             logger.error("Mensaje error Connector Twitter.", te);
         }

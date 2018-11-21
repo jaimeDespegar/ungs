@@ -12,7 +12,6 @@ import ungs.services.Service;
 import ungs.utils.ConfigUtils;
 import ungs.utils.exceptions.ConfigurationException;
 
-
 public class InformationBuilder {
 
     private InformationService instance;
@@ -30,7 +29,7 @@ public class InformationBuilder {
             this.instance.addService(t);
         } catch (Exception e) {
             logger.error("Error", e);
-            throw new ConfigurationException("No existe la clase: " + service + " , package " + pathPackage);
+            throw new ConfigurationException("No existe el servicio para: " + service + " , package " + pathPackage);
         }
         return this;
     }

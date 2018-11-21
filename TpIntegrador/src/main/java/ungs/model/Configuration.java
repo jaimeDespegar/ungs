@@ -4,13 +4,15 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import ungs.utils.ConfigUtils;
 import ungs.utils.ReaderValuesConfiguration;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Configuration {
 
-    private Map<String, String> values = Maps.newHashMap();
+    private Map<String, String> values = new HashMap<>();
 
     public Configuration() {}
 
@@ -45,6 +47,11 @@ public class Configuration {
         List<String> list = Lists.newArrayList();
         keys.forEach(key -> list.add(values.get(key)));
         return list;
+    }
+
+    public boolean setValueConfiguration(String key, String value) {
+        this.values.remove(key);
+        return this.values.put(key, value)!=null;
     }
 
 }

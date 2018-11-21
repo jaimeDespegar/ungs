@@ -3,7 +3,7 @@ package ungs.filters.filterInt;
 import ungs.connectors.AbstractConnector;
 import java.util.List;
 
-public abstract class AllFilter<I,O> extends AbstractFilter<I,O> {
+public abstract class AllFilter<I,O, P> extends AbstractFilter<I,O, P> {
 
     public AllFilter(AbstractConnector connector) {
         super(connector);

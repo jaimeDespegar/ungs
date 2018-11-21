@@ -12,7 +12,7 @@ import ungs.utils.ConfigUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Service<C extends AbstractConnector, OBJECT, T extends TransformerInformation<OBJECT>> implements ServiceData<InformationDto> {
+public abstract class Service<C extends AbstractConnector, OBJECT, T extends TransformerInformation<OBJECT>> implements ServiceData<OBJECT> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     protected C connector;
@@ -46,7 +46,7 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
                                .collect(Collectors.toList());
     }
 
-    public boolean isEnabled() {
+    public boolean isServiceOk() {
         return connector.isAvailable();
     }
 
@@ -62,4 +62,21 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
         return filterFactory;
     }
 
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    public void setValueConfiguration(String key, String value) {
+        this.configuration.setValueConfiguration(key, value);
+        this.connector.setConfiguration(configuration);
+    }
+
+    protected Integer getCountValues() {
+        Integer value = configuration.getNumber(String.format("%s.response.count", getOrigin()));
+        return value==0 ? ConfigUtils.DEFAULT_COUNT : value;
+    }
 }

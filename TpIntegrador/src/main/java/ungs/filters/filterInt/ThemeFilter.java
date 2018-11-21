@@ -5,9 +5,9 @@ import ungs.connectors.AbstractConnector;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class ThemeFilter<I,O> extends AbstractFilter<I,O> {
+public abstract class ThemeFilter<I,O,P> extends AbstractFilter<I,O,P> {
 
-    public ThemeFilter(AbstractConnector connector, List<I> list) {
+    public ThemeFilter(AbstractConnector connector, List<P> list) {
         super(connector, list);
     }
 
@@ -18,6 +18,6 @@ public abstract class ThemeFilter<I,O> extends AbstractFilter<I,O> {
         return listResult;
     }
 
-    protected abstract Consumer<I> getConsumerTheme(List<O> result);
+    protected abstract Consumer<P> getConsumerTheme(List<O> result);
 
 }

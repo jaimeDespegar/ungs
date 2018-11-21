@@ -20,7 +20,7 @@ public class ServiceMonitorTask implements MyTask {
     }
 
     public void enabledIfServiceIsOk(Service service) {
-        if(!service.isEnabled()) {
+        if(!service.isServiceOk()) {
             ConnectorProxy proxy = service.getProxy();
             proxy.setState(new CircuitBreakerStateHalfOpen());
             proxy.reconnectedCircuite();

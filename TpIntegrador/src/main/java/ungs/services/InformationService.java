@@ -1,18 +1,13 @@
 package ungs.services;
 
 import com.google.common.collect.Lists;
-import com.sun.scenario.effect.impl.prism.PrImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ungs.caches.client.ServiceCacheProxy;
 import ungs.dto.Theme;
 import ungs.filters.FilterManager;
-import ungs.internacionalizacion.LenguajeConfiguration;
-import ungs.internacionalizacion.LenguajeValue;
-import ungs.model.Configuration;
-import ungs.model.InformationDto;
-import ungs.model.ViewFilter;
-
+import ungs.internacionalizacion.*;
+import ungs.model.*;
 import java.util.List;
 
 public class InformationService {
@@ -36,9 +31,7 @@ public class InformationService {
     }
 
     public List<InformationDto> getInformation() {
-        serviceCacheProxy.setService(services.get(0));
-        logger.error("CAMBIAR ESTO");
-        return serviceCacheProxy.getData();
+        return serviceCacheProxy.getData(services);
     }
 
     public List<Service> getServices() {
@@ -75,6 +68,10 @@ public class InformationService {
 
     public List<InformationDto> searchByFilters(ViewFilter viewFilter) {
         return Lists.newArrayList();
+    }
+
+    public boolean setValueConfiguration(String key, String value) {
+        return configuration.setValueConfiguration(key, value);
     }
 
 }

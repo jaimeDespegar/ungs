@@ -1,5 +1,6 @@
 package ungs.filters.filterFactory;
 
+import ungs.connectors.AbstractConnector;
 import ungs.connectors.RssConnector;
 import ungs.dto.Theme;
 import ungs.filters.filterInt.*;
@@ -8,9 +9,9 @@ import java.util.List;
 
 public class RssFilterFactory implements FilterFactory {
 
-    private RssConnector rssConnector;
+    private AbstractConnector rssConnector;
 
-    public RssFilterFactory(RssConnector rssConnector) {
+    public RssFilterFactory(AbstractConnector rssConnector) {
         this.rssConnector = rssConnector;
     }
 

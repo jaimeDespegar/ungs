@@ -21,7 +21,7 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
         this.configuration = configuration;
     }
 
-    protected boolean isServiceOk(String url) {
+    public boolean isServiceOk(String url) {
         try {
             return ConnectionHelper.isOkResponse(connectionResponse(url));
         } catch (IOException e) {

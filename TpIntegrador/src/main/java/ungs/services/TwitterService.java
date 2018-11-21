@@ -9,6 +9,8 @@ import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
+import ungs.utils.ResponseUtil;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,13 +43,13 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
     public List<TwitterObjectDto> getAllTweets() {
         List<String> allUsers = this.getAllUsersNames();
         List<TwitterObjectDto> tweets = Lists.newArrayList();
-        allUsers.forEach(user -> tweets.addAll(this.connector.findByUser(user)));
+        allUsers.forEach(user -> tweets.addAll(ResponseUtil.getListItemsBySizeConfiguration(this.connector.findByUser(user), this.getCountValues())));
         return tweets;
     }
 
     @Override
-    public List<InformationDto> getData() {
-        return this.getInformation(getAllTweets());
+    public List<TwitterObjectDto> getData(){
+        return getAllTweets();
     }
 
     private List<String> getAllUsersNames() {

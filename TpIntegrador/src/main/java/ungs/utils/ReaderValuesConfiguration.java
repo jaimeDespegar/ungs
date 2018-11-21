@@ -11,17 +11,17 @@ import java.util.Properties;
 public class ReaderValuesConfiguration {
 
     private Properties properties;
-    private Map<String, String> mapValues;
+    private Map<String, String> mapValues = Maps.newHashMap();
 
     public ReaderValuesConfiguration(String path) {
         this.properties = new Properties();
 
         try {
             properties.load((new FileReader(path)));
-            mapValues = Maps.fromProperties(properties);
+            mapValues.putAll(Maps.fromProperties(properties));
         }
         catch (FileNotFoundException e) {
-            throw new ConfigurationException("No se encontro el archivo de configuration: " + path, e);
+            throw new ConfigurationException(String.format("El archivo de Configuracion %s no existe. ", path), e);
         }
         catch (IOException e) {
             throw new ConfigurationException("Error al leer el archivo de configuracion: " + path, e);

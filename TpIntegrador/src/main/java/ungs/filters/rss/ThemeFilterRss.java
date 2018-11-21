@@ -7,10 +7,16 @@ import ungs.filters.filterInt.ThemeFilter;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ThemeFilterRss extends ThemeFilter<Theme, RssItemDto> {
+public class ThemeFilterRss extends ThemeFilter<RssItemDto, RssItemDto, Theme> {
 
     public ThemeFilterRss(AbstractConnector connector, List<Theme> list) {
         super(connector, list);
+    }
+
+
+    @Override
+    public List<RssItemDto> applyFilter(List<RssItemDto> list) {
+        return list;
     }
 
     @Override

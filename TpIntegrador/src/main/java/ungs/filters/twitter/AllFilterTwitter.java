@@ -8,7 +8,7 @@ import ungs.filters.filterInt.AllFilter;
 import ungs.filters.utils.ThemeHelper;
 import java.util.List;
 
-public class AllFilterTwitter extends AllFilter<String, TwitterObjectDto> {
+public class AllFilterTwitter extends AllFilter<TwitterObjectDto, TwitterObjectDto, String> {
 
     public AllFilterTwitter(AbstractConnector connector) {
         super(connector);

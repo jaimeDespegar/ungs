@@ -30,7 +30,7 @@ public abstract class ConfigUtils {
     public static final String TWITTER_TOKEN_SECRET_KEY = "twitter.user.tokenSecretKey";
     public static final String TWITTER_USERS_SPORT = "twitter.theme.sport";
     public static final String TWITTER_USERS_POLITICS = "twitter.theme.politics";
-    public static final String TWITTER_COUNT = "twitter.tweets.count";
+    public static final String TWITTER_COUNT = "twitter.response.count";
     // RSS
     public static final String RSS_COUNT = "rss.response.count";
     public static final String RSS_URL_CONNECTION = "rss.urlConnection";

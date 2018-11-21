@@ -21,7 +21,7 @@ public class ThemeHelper {
 
     public static List<TwitterObjectDto> tweetsByUser(Theme theme, AbstractConnector connector) {
         List<TwitterObjectDto> list = Lists.newArrayList();
-        theme.getSubValues().forEach(i -> list.addAll(connector.find(String.format(FIND_BY_USER, i))));
+        theme.getSubValues().forEach(user -> list.addAll(connector.find(String.format(FIND_BY_USER, user))));
         return list;
     }
 
