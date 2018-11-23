@@ -2,7 +2,7 @@ package ungs.circuitBreaker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ungs.connectors.Connector;
+import ungs.connectors.interfaz.Connector;
 import ungs.utils.exceptions.CircuitBreakerCloseException;
 import ungs.utils.exceptions.CircuitBreakerOpenException;
 import java.util.List;

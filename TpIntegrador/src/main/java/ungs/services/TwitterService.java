@@ -1,23 +1,22 @@
 package ungs.services;
 
 import com.google.common.collect.Lists;
-import ungs.connectors.TwitterConnector;
+import ungs.connectors.impl.AbstractConnector;
+import ungs.connectors.impl.TwitterConnector;
+import ungs.connectors.interfaz.TwitterSpecificConnector;
 import ungs.dto.TwitterObjectDto;
-import ungs.filters.ConditionFilter;
 import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.TwitterFilterFactory;
 import ungs.model.Configuration;
-import ungs.model.InformationDto;
 import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
 import ungs.utils.ResponseUtil;
-
 import java.util.Arrays;
 import java.util.List;
 
-public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, TwitterTransformer> {
+public class TwitterService extends Service<AbstractConnector, TwitterObjectDto, TwitterTransformer> {
 
-    public TwitterService(TwitterTransformer transformer, TwitterConnector connector, TwitterFilterFactory factory, FilterExecutor filterExecutor, Configuration configuration) {
+    public TwitterService(TwitterTransformer transformer, AbstractConnector connector, TwitterFilterFactory factory, FilterExecutor filterExecutor, Configuration configuration) {
         super(transformer, connector, factory, filterExecutor, configuration);
     }
 
@@ -34,19 +33,15 @@ public class TwitterService extends Service<TwitterConnector, TwitterObjectDto, 
         return this.connector.isAvailable();
     }
 
-    public List<TwitterObjectDto> getTweetsByUser(String user) {
-        return this.connector.findByUser(user);
-    }
-
-    public List<TwitterObjectDto> getTweetsByConditionFilter(ConditionFilter filter) {
-        return this.connector.findByFilter(filter);
-    }
-
     public List<TwitterObjectDto> getAllTweets() {
         List<String> allUsers = this.getAllUsersNames();
         List<TwitterObjectDto> tweets = Lists.newArrayList();
-        allUsers.forEach(user -> tweets.addAll(ResponseUtil.getListItemsBySizeConfiguration(this.connector.findByUser(user), this.getCountValues())));
-        return tweets;
+        allUsers.forEach(user -> tweets.addAll(findByUser(user)));
+        return ResponseUtil.getListItemsBySizeConfiguration(tweets, this.getCountValues());
+    }
+
+    private List<TwitterObjectDto> findByUser(String user) {
+        return ((TwitterSpecificConnector) connector).findByUser(user);
     }
 
     @Override

@@ -2,7 +2,7 @@ package ungs.filters.filterInt;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.model.Configuration;
 import java.util.List;
 

@@ -1,10 +1,11 @@
-package ungs.connectors;
+package ungs.connectors.impl;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ungs.connectors.interfaz.Connector;
 import ungs.helpers.ConnectionHelper;
 import ungs.model.Configuration;
 import java.io.IOException;

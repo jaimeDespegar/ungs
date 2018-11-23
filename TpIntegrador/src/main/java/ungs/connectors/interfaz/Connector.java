@@ -1,4 +1,4 @@
-package ungs.connectors;
+package ungs.connectors.interfaz;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package coverage.services;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ungs.connectors.TwitterConnector;
+import ungs.connectors.impl.TwitterConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.TwitterFilterFactory;

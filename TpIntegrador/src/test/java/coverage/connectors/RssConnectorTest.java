@@ -3,8 +3,7 @@ package coverage.connectors;
 import static org.junit.Assert.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ungs.connectors.RssConnector;
-import ungs.model.Configuration;
+import ungs.connectors.impl.RssConnector;
 
 public class RssConnectorTest {
 

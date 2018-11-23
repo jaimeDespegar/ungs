@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import servicesStub.RssConnectorStub;
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.RssFilterFactory;

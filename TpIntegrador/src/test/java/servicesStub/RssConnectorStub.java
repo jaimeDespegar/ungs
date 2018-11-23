@@ -1,15 +1,15 @@
 package servicesStub;
 
 import com.google.common.collect.Lists;
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
+import ungs.connectors.interfaz.RssSpecificConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.utils.ConfigUtils;
 import ungs.utils.RssCheckUrlUtil;
-import ungs.utils.exceptions.ConfigurationException;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class RssConnectorStub extends AbstractConnector {
+public class RssConnectorStub extends AbstractConnector implements RssSpecificConnector {
 
     private List<RssItemDto> itemsRss = Lists.newArrayList();
 
@@ -18,7 +18,7 @@ public class RssConnectorStub extends AbstractConnector {
     @Override
     public void initConnection() {
         itemsRss.add(new RssItemDto("Sport", "Futbol 2018: River vs Boca", "www.sarasa.com"));
-        itemsRss.add(new RssItemDto("Politics", "Elecciones 2019", "www.clarin.com"));
+        itemsRss.add(new RssItemDto("Politics", "En el mes de noviembre harán su", "www.clarin.com"));
         //itemsRss.add(new RssItemDto("Politics", "Futbol para todos", "www.clarin.com"));
         RssCheckUrlUtil.isUrlOk(this);
     }
@@ -34,7 +34,7 @@ public class RssConnectorStub extends AbstractConnector {
     }
 
     @Override
-    public List find(String keyUrl) {
+    public List<RssItemDto> find(String keyUrl) {
         if(keyUrl.equalsIgnoreCase("rss.theme.sport")) {
             return itemsRss.subList(0,1);
         }
@@ -42,6 +42,11 @@ public class RssConnectorStub extends AbstractConnector {
             return itemsRss.subList(1,2);
         }
         return null;
+    }
+
+    @Override
+    public List<RssItemDto> find(List<String> listUrl) {
+        return listUrl.stream().flatMap(i->find(i).stream()).collect(Collectors.toList());
     }
 
 }

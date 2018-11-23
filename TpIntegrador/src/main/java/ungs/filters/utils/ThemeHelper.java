@@ -1,7 +1,7 @@
 package ungs.filters.utils;
 
 import com.google.common.collect.Lists;
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.Theme;
 import ungs.dto.TwitterObjectDto;
 import ungs.model.Configuration;

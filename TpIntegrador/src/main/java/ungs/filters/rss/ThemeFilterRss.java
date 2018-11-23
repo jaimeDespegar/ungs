@@ -1,6 +1,6 @@
 package ungs.filters.rss;
 
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.Theme;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.filterInt.ThemeFilter;

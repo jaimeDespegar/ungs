@@ -1,17 +1,17 @@
-package ungs.connectors;
+package ungs.connectors.impl;
 
 import com.google.common.collect.Lists;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
+import ungs.connectors.interfaz.TwitterSpecificConnector;
 import ungs.dto.TwitterObjectDto;
-import ungs.filters.ConditionFilter;
 import ungs.helpers.TwitterHelper;
 import ungs.model.Configuration;
 import ungs.utils.ConfigUtils;
 import ungs.utils.ResponseUtil;
 import java.util.List;
 
-public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
+public class TwitterConnector extends AbstractConnector<TwitterObjectDto> implements TwitterSpecificConnector {
 
     private Twitter twitter;
     private TwitterHelper helper;
@@ -69,16 +69,13 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> {
         return Lists.newArrayList();
     }
 
+    @Override
     public List<TwitterObjectDto> findByUser(String user) {
         return this.find("from:" + user);
     }
 
     public List<TwitterObjectDto> findByUserAndDescription(String user, String description) {
         return this.find("from:" + user + " " + description);
-    }
-
-    public List<TwitterObjectDto> findByFilter(ConditionFilter filter) {
-        return this.find(filter.getValue());
     }
 
     public List<TwitterObjectDto> findByHashtag(String hashtag) {

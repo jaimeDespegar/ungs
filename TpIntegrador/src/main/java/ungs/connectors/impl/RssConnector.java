@@ -1,7 +1,8 @@
-package ungs.connectors;
+package ungs.connectors.impl;
 
 import com.google.common.collect.Lists;
 import org.apache.http.HttpResponse;
+import ungs.connectors.interfaz.RssSpecificConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.dto.rss.RssRootDto;
 import ungs.helpers.ConnectionHelper;
@@ -13,7 +14,7 @@ import ungs.utils.exceptions.ConfigurationException;
 import java.io.InputStream;
 import java.util.List;
 
-public class RssConnector extends AbstractConnector<RssItemDto> {
+public class RssConnector extends AbstractConnector<RssItemDto> implements RssSpecificConnector {
 
     private Integer COUNT_ELEMENTS;
     private JsonMapper mapper = JsonMapper.getMapper();
@@ -47,6 +48,7 @@ public class RssConnector extends AbstractConnector<RssItemDto> {
         return ResponseUtil.getListItemsBySizeConfiguration(rssRootDto.getRss().getChannel().getListItems(), COUNT_ELEMENTS);
     }
 
+    @Override
     public List<RssItemDto> find(List<String> listUrl) {
         List<RssItemDto> items = Lists.newArrayList();
         listUrl.forEach(url -> items.addAll(find(url)));

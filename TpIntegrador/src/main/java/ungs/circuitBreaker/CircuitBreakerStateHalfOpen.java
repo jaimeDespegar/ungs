@@ -1,7 +1,7 @@
 package ungs.circuitBreaker;
 
 import com.google.common.collect.Lists;
-import ungs.connectors.Connector;
+import ungs.connectors.interfaz.Connector;
 import java.util.List;
 
 public class CircuitBreakerStateHalfOpen<T> implements CircuitBreakerState {

@@ -1,6 +1,7 @@
 package ungs.filters.filterFactory;
 
-import ungs.connectors.TwitterConnector;
+import com.google.common.collect.Lists;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.Theme;
 import ungs.filters.filterInt.*;
 import ungs.filters.twitter.*;
@@ -8,9 +9,9 @@ import java.util.List;
 
 public class TwitterFilterFactory implements FilterFactory {
 
-    private TwitterConnector twitterConnector;
+    private AbstractConnector twitterConnector;
 
-    public TwitterFilterFactory(TwitterConnector twitterConnector) {
+    public TwitterFilterFactory(AbstractConnector twitterConnector) {
         this.twitterConnector = twitterConnector;
     }
 
@@ -29,4 +30,8 @@ public class TwitterFilterFactory implements FilterFactory {
         return new AllFilterTwitter(twitterConnector);
     }
 
+    @Override
+    public List<String> getSubValues(String i) {
+        return Lists.newArrayList(twitterConnector.getConfiguration().get("twitter.theme."+ i).split(","));
+    }
 }

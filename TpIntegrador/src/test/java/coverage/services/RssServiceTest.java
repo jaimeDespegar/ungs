@@ -1,16 +1,7 @@
 package coverage.services;
 
-import static org.testng.Assert.*;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import ungs.connectors.RssConnector;
-import ungs.dto.rss.RssItemDto;
-import ungs.model.Configuration;
 import ungs.services.RssService;
-import ungs.themes.Theme;
-import ungs.transformers.RssTransformer;
-
-import java.util.List;
 
 public class RssServiceTest {
 

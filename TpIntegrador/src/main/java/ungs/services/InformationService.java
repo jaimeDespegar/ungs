@@ -74,4 +74,11 @@ public class InformationService {
         return configuration.setValueConfiguration(key, value);
     }
 
+    public List<InformationDto> getData(ViewFilter filter) {
+        List<InformationDto> result = Lists.newArrayList();
+        this.services.stream().filter(s -> filter.getProviders().contains(s.getOrigin()) || filter.getAll())
+                              .forEach(i -> result.addAll(i.getInformation(filter)));
+        return result;
+    }
+
 }

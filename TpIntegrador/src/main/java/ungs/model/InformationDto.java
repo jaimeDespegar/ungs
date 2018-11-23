@@ -1,16 +1,15 @@
 package ungs.model;
 
-import ungs.themes.Theme;
 
 public class InformationDto {
 
     private String id;
     private Origin origin;
-    private Theme  theme;
+    private String  theme;
     private String description;
     private String date;
 
-    public InformationDto(String id, Origin origin, Theme theme, String description, String date) {
+    public InformationDto(String id, Origin origin, String theme, String description, String date) {
         this.id = id;
         this.origin = origin;
         this.theme = theme;
@@ -34,11 +33,11 @@ public class InformationDto {
         this.origin = origin;
     }
 
-    public Theme getTheme() {
+    public String getTheme() {
         return theme;
     }
 
-    public void setTheme(Theme theme) {
+    public void setTheme(String theme) {
         this.theme = theme;
     }
 

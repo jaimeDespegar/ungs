@@ -1,7 +1,7 @@
 package ungs.filters.filterFactory;
 
-import ungs.connectors.AbstractConnector;
-import ungs.connectors.RssConnector;
+import com.google.common.collect.Lists;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.Theme;
 import ungs.filters.filterInt.*;
 import ungs.filters.rss.*;
@@ -28,6 +28,11 @@ public class RssFilterFactory implements FilterFactory {
     @Override
     public AllFilter getAllFilter() {
         return new AllFilterRss(rssConnector);
+    }
+
+    @Override
+    public List<String> getSubValues(String i) {
+        return Lists.newArrayList("rss.theme." + i);
     }
 
 }

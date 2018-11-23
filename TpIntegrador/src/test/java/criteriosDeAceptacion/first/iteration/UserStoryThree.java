@@ -1,81 +1,89 @@
 package criteriosDeAceptacion.first.iteration;
 
-import org.mockito.Mock;
-import static org.mockito.Mockito.*;
+import builders.ViewFilterBuilder;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import ungs.connectors.RssConnector;
-import ungs.connectors.TwitterConnector;
-import ungs.dto.Theme;
-import ungs.dto.TwitterObjectDto;
-import ungs.dto.rss.RssItemDto;
-import ungs.filters.filterInt.Filter;
-import ungs.filters.rss.DescriptionFilterRss;
-import ungs.filters.rss.ThemeFilterRss;
-import ungs.filters.twitter.DescriptionFilterTwitter;
-import ungs.filters.twitter.ThemeFilterTwitter;
-import java.util.Arrays;
+import servicesStub.*;
+import ungs.builder.InformationBuilder;
+import ungs.connectors.impl.AbstractConnector;
+import ungs.filters.FilterExecutor;
+import ungs.filters.filterFactory.*;
+import ungs.model.Configuration;
+import ungs.model.InformationDto;
+import ungs.model.ViewFilter;
+import ungs.services.*;
+import ungs.transformers.*;
 import java.util.List;
 
 public class UserStoryThree {
 
-    private Filter filterDescription, filterDescriptionTwitter, filterThemeSport, filterThemePolitics, filterThemeSportTwitter;
-    @Mock
-    private RssConnector rssConnector;
-    @Mock
-    private TwitterConnector twitterConnector;
+    private RssService rssService;
+    private TwitterService twitterService;
+    private InformationService informationService;
+    private AbstractConnector connector = new RssConnectorStub();
+    private AbstractConnector tConnector = new TwitterConnectorStub();
+    private ViewFilter filterSport,filterPolitics,filterDescription,filterAll,filterDescriptionAndSport,filterDescriptionAndPolitics,filterDescriptionAndAllThemes;
+    private String pathFileRss = "src/test/resources/test-files/services/rss/rss-exists.properties";
+    private String pathFileTwitter = "src/test/resources/test-files/services/twitter/twitter-exists.properties";
 
     @BeforeClass
     public void init() {
-        rssConnector = mock(RssConnector.class);
-        twitterConnector = mock(TwitterConnector.class);
-        filterDescription = new DescriptionFilterRss(rssConnector, "Futbol");
-        filterDescriptionTwitter = new DescriptionFilterTwitter(twitterConnector, "torneo");
-        filterThemeSport = new ThemeFilterRss(rssConnector, Arrays.asList(new Theme("sport")));
-        filterThemePolitics = new ThemeFilterRss(rssConnector, Arrays.asList(new Theme("politics")));
-        filterThemeSportTwitter = new ThemeFilterTwitter(twitterConnector, Arrays.asList(new Theme("sport", Arrays.asList("PolloVignolo", "TyCSports"))));
+        this.rssService = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector),new FilterExecutor(), new Configuration(pathFileRss));
+        this.twitterService = new TwitterService(new TwitterTransformer(), tConnector, new TwitterFilterFactory(tConnector), new FilterExecutor(), new Configuration(pathFileTwitter));
+
+        this.informationService = new InformationBuilder().build();
+        this.informationService.addService(rssService);
+        this.informationService.addService(twitterService);
+
+        this.filterSport = ViewFilterBuilder.create().dataDefault().withThemes("sport").build();
+        this.filterPolitics = ViewFilterBuilder.create().dataDefault().withThemes("politics").build();
+        this.filterDescription = ViewFilterBuilder.create().dataDefault().withDescription("river").build();
+        this.filterDescriptionAndSport = ViewFilterBuilder.create().dataDefault().withThemes("sport").withDescription("river").build();
+        this.filterDescriptionAndPolitics = ViewFilterBuilder.create().dataDefault().withThemes("politics").withDescription("medios").build();
+        this.filterDescriptionAndAllThemes = ViewFilterBuilder.create().dataDefault().withDescription("de").build();
+        this.filterAll = ViewFilterBuilder.create().dataDefaultEmpty().setAll(true).build();
     }
 
     @Test
     public void filterByThemeSport() {
-        List<RssItemDto> result = filterThemeSport.applyFilter();
-        List<TwitterObjectDto> twitterObjectDtos = filterThemeSportTwitter.applyFilter();
-        Assert.assertEquals(result.size(), 1);
-        Assert.assertEquals(twitterObjectDtos.size(), 2);
+        List<InformationDto> result = informationService.getData(filterSport);
+        Assert.assertEquals(result.size(), 2);
     }
 
     @Test
     public void filterByThemePolitics() {
-        List<RssItemDto> result = filterThemePolitics.applyFilter();
+        List<InformationDto> result = informationService.getData(filterPolitics);
         Assert.assertEquals(result.size(), 2);
     }
 
     @Test
     public void filterByDescription() {
-        List<RssItemDto> result = filterDescription.applyFilter();
-        List<TwitterObjectDto> resultTwitter = filterDescriptionTwitter.applyFilter();
+        List<InformationDto> result = informationService.getData(filterDescription);
         Assert.assertEquals(result.size(), 2);
-        Assert.assertEquals(resultTwitter.size(), 2);
     }
 
     @Test
     public void filterByDescriptionAndThemeSport() {
-
+        List<InformationDto> result = informationService.getData(filterDescriptionAndSport);
+        Assert.assertEquals(result.size(), 2);
     }
 
     @Test
     public void filterByDescriptionAndThemePolitics() {
-
+        List<InformationDto> result = informationService.getData(filterDescriptionAndPolitics);
+        Assert.assertEquals(result.size(), 1);
     }
 
     @Test
     public void filterByDescriptionAndAllThemes() {
-
+        List<InformationDto> result = informationService.getData(filterDescriptionAndAllThemes);
+        Assert.assertEquals(result.size(), 3);
     }
 
     @Test
     public void filterByAll() {
-
+        List<InformationDto> result = informationService.getData(filterAll);
+        Assert.assertEquals(result.size(), 4);
     }
 
 }

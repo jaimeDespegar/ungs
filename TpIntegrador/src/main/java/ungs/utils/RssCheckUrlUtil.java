@@ -1,6 +1,6 @@
 package ungs.utils;
 
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.utils.exceptions.ConfigurationException;
 
 public class RssCheckUrlUtil {

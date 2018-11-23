@@ -1,13 +1,14 @@
 package ungs.filters.twitter;
 
 import com.google.common.collect.Lists;
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.Theme;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.filterInt.ThemeFilter;
 import ungs.filters.utils.ThemeHelper;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class ThemeFilterTwitter extends ThemeFilter<TwitterObjectDto,TwitterObjectDto,Theme> {
 
@@ -17,14 +18,9 @@ public class ThemeFilterTwitter extends ThemeFilter<TwitterObjectDto,TwitterObje
 
     @Override
     public List<TwitterObjectDto> applyFilter(List<TwitterObjectDto> input) {
-        List<TwitterObjectDto> result = Lists.newArrayList();
-        listInput.forEach(theme -> {
-            theme.getSubValues().forEach(user -> {
-                input.stream().filter(tweet -> tweet.getUserName().equalsIgnoreCase(user))
-                              .map(a -> result.add(a));
-            });
-        });
-        return result;
+        List<String> list = Lists.newArrayList();
+        listInput.forEach(a -> list.addAll(a.getSubValues()));
+        return input.stream().filter(i->list.contains(i.getUserName())).collect(Collectors.toList());
     }
 
     @Override

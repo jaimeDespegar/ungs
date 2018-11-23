@@ -1,6 +1,6 @@
 package ungs.filters.twitter;
 
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.filterInt.DescriptionFilter;
 import java.util.function.Predicate;

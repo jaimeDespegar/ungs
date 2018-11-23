@@ -5,7 +5,7 @@ import ungs.caches.client.MongoDbCacheClient;
 import ungs.caches.executors.TaskExecutor;
 import ungs.caches.executors.TaskJob;
 import ungs.caches.executors.tasks.impl.LoadCacheTask;
-import ungs.connectors.TwitterConnector;
+import ungs.connectors.impl.TwitterConnector;
 import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.TwitterFilterFactory;
 import ungs.model.Configuration;

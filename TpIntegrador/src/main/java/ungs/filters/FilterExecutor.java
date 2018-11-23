@@ -9,7 +9,7 @@ public class FilterExecutor<I> {
     public List<I> getData(List<AbstractFilter> filters) {
         List<I> result = Lists.newArrayList();
         for (AbstractFilter f : filters) {
-            f.setListInput(result);
+            f.setResult(result);
             result = f.doApplyFilter();
         }
         return result;

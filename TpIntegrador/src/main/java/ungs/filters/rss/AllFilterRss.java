@@ -1,7 +1,7 @@
 package ungs.filters.rss;
 
-import ungs.connectors.AbstractConnector;
-import ungs.connectors.RssConnector;
+import ungs.connectors.impl.AbstractConnector;
+import ungs.connectors.interfaz.RssSpecificConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.filterInt.AllFilter;
 import java.util.List;
@@ -15,7 +15,7 @@ public class AllFilterRss extends AllFilter<String, RssItemDto, RssItemDto> {
     @Override
     public List<RssItemDto> applyFilter() {
         List<String> themes = configuration.getKeysStartWith("rss.theme.");
-        return ((RssConnector)connector).find(themes);
+        return ((RssSpecificConnector)connector).find(themes);
     }
 
 }

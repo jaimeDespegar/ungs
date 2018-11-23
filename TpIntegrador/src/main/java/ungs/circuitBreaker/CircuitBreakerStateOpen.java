@@ -1,6 +1,6 @@
 package ungs.circuitBreaker;
 
-import ungs.connectors.Connector;
+import ungs.connectors.interfaz.Connector;
 import ungs.utils.exceptions.CircuitBreakerOpenException;
 import java.util.List;
 

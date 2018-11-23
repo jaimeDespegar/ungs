@@ -1,8 +1,8 @@
 package ungs.services;
 
 import com.google.common.collect.Lists;
-import ungs.connectors.AbstractConnector;
-import ungs.connectors.RssConnector;
+import ungs.connectors.impl.AbstractConnector;
+import ungs.connectors.impl.RssConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.FilterFactory;

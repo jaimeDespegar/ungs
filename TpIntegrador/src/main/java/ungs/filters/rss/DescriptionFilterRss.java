@@ -1,6 +1,6 @@
 package ungs.filters.rss;
 
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.filterInt.DescriptionFilter;
 import java.util.function.Predicate;

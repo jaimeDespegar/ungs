@@ -1,6 +1,6 @@
 package ungs.filters.filterInt;
 
-import ungs.connectors.AbstractConnector;
+import ungs.connectors.impl.AbstractConnector;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
