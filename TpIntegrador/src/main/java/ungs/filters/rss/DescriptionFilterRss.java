@@ -14,7 +14,7 @@ public class DescriptionFilterRss extends DescriptionFilter<RssItemDto, RssItemD
 
     @Override
     protected Predicate<RssItemDto> isContainsDescription(String filterDescription) {
-        return i -> i.getDescription().toLowerCase().contains(filterDescription.toLowerCase());
+        return i -> i!=null?i.getDescription().toLowerCase().contains(filterDescription.toLowerCase()):false;
     }
 
 }

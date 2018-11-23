@@ -1,6 +1,7 @@
 package ungs.services;
 
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ungs.caches.client.ServiceCacheProxy;
@@ -8,6 +9,8 @@ import ungs.dto.Theme;
 import ungs.filters.FilterManager;
 import ungs.internacionalizacion.*;
 import ungs.model.*;
+import ungs.utils.JsonMapper;
+
 import java.util.List;
 
 public class InformationService {
@@ -76,7 +79,8 @@ public class InformationService {
 
     public List<InformationDto> getData(ViewFilter filter) {
         List<InformationDto> result = Lists.newArrayList();
-        this.services.stream().filter(s -> filter.getProviders().contains(s.getOrigin()) || filter.getAll())
+        logger.info(JsonMapper.getMapper().toJson(filter));
+        this.services.stream().filter(s -> filter.getProviders().contains(s.getOrigin().toLowerCase()) || filter.getAll())
                               .forEach(i -> result.addAll(i.getInformation(filter)));
         return result;
     }

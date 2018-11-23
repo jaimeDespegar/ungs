@@ -4,12 +4,12 @@ package ungs.model;
 public class InformationDto {
 
     private String id;
-    private Origin origin;
+    private String origin;
     private String  theme;
     private String description;
     private String date;
 
-    public InformationDto(String id, Origin origin, String theme, String description, String date) {
+    public InformationDto(String id, String origin, String theme, String description, String date) {
         this.id = id;
         this.origin = origin;
         this.theme = theme;
@@ -25,11 +25,11 @@ public class InformationDto {
         this.id = id;
     }
 
-    public Origin getOrigin() {
+    public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Origin origin) {
+    public void setOrigin(String origin) {
         this.origin = origin;
     }
 

@@ -5,6 +5,7 @@ import ungs.connectors.impl.AbstractConnector;
 import ungs.connectors.impl.RssConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.FilterExecutor;
+import ungs.filters.FilterManager;
 import ungs.filters.filterFactory.FilterFactory;
 import ungs.filters.filterFactory.RssFilterFactory;
 import ungs.model.Configuration;
@@ -25,6 +26,7 @@ public class RssService extends Service<AbstractConnector, RssItemDto, RssTransf
         this.connector = new RssConnector(configuration);
         this.filterFactory = new RssFilterFactory(connector);
         this.filterExecutor = new FilterExecutor();
+        this.filterManager = new FilterManager();
         this.init();
     }
 

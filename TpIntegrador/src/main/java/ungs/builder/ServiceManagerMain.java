@@ -24,6 +24,9 @@ public class ServiceManagerMain {
         return builder.build();
     }
 
+    public static InformationService buildInformationService() {
+        return new ServiceManagerMain().buildService(ConfigUtils.CONFIG_FILE);
+    }
 
     public static void main(String[] args) {
         ServiceManagerMain main = new ServiceManagerMain();

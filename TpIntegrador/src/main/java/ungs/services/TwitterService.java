@@ -6,6 +6,7 @@ import ungs.connectors.impl.TwitterConnector;
 import ungs.connectors.interfaz.TwitterSpecificConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.FilterExecutor;
+import ungs.filters.FilterManager;
 import ungs.filters.filterFactory.TwitterFilterFactory;
 import ungs.model.Configuration;
 import ungs.transformers.TwitterTransformer;
@@ -26,6 +27,7 @@ public class TwitterService extends Service<AbstractConnector, TwitterObjectDto,
         this.connector = new TwitterConnector(configuration);
         this.filterFactory = new TwitterFilterFactory(connector);
         this.filterExecutor = new FilterExecutor();
+        this.filterManager = new FilterManager();
         this.init();
     }
 

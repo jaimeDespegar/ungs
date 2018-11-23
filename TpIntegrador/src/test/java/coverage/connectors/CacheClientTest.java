@@ -18,7 +18,7 @@ public class CacheClientTest {
     @BeforeClass
     public void init() {
         this.instance = new StubCacheClient();
-        this.info = new InformationDto("1", Origin.TWITTER, Theme.DEPORTES, "test", DateTime.now().toString());
+        this.info = new InformationDto("1", "TWITTER", "DEPORTES", "test", DateTime.now().toString());
     }
 
     @BeforeMethod
@@ -30,8 +30,8 @@ public class CacheClientTest {
     public void insertTest_withValues_thenInsertOk() {
         Assert.assertTrue(this.instance.insert(info));
         InformationDto infoInserted = this.instance.readAll().get(0);
-        Assert.assertEquals(infoInserted.getOrigin(), Origin.TWITTER);
-        Assert.assertEquals(infoInserted.getTheme(), Theme.DEPORTES);
+        Assert.assertEquals(infoInserted.getOrigin(), "TWITTER");
+        Assert.assertEquals(infoInserted.getTheme(), "DEPORTES");
         Assert.assertEquals(infoInserted.getDescription(), "test");
     }
 
