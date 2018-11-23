@@ -1,4 +1,4 @@
-package criteriosDeAceptacion.first.iteration;
+package ungs.criteriosDeAceptacion.first.iteration;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;

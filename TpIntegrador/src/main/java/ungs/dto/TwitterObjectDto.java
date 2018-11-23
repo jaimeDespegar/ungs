@@ -41,15 +41,6 @@ public class TwitterObjectDto {
         this.userName = userName;
     }
 
-    public List<String> getHashtags() {
-        return hashtags;
-    }
-
-    public void setHashtags(List<String> hashtags) {
-        this.hashtags = hashtags;
-    }
-
-
     @Override
     public String toString() {
         hashtags.forEach(i->System.out.println(i));

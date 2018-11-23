@@ -1,4 +1,4 @@
-package criteriosDeAceptacion.two.iteration;
+package ungs.criteriosDeAceptacion.two.iteration;
 
 import static org.testng.Assert.*;
 import com.google.common.collect.Lists;

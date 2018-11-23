@@ -23,14 +23,6 @@ public class Theme {
         this.subValues = subValues;
     }
 
-    public void addSubValue(String value) {
-        this.subValues.add(value);
-    }
-
-    public void removeSubValue(String value) {
-        this.subValues.remove(value);
-    }
-
     public List<String> getSubValues() {
         return subValues;
     }

@@ -1,4 +1,4 @@
-package servicesStub;
+package ungs.servicesStub;
 
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;

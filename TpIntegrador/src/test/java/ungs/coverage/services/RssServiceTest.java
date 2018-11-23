@@ -1,4 +1,4 @@
-package coverage.services;
+package ungs.coverage.services;
 
 import org.testng.annotations.BeforeClass;
 import ungs.services.RssService;

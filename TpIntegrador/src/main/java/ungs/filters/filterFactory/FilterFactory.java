@@ -11,6 +11,6 @@ public interface FilterFactory {
     DescriptionFilter getDescriptionFilter(String description);
     ThemeFilter getThemeFilter(List<Theme> themes);
     AllFilter getAllFilter();
-
     List<String> getSubValues(String i);
+
 }

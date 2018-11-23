@@ -1,10 +1,10 @@
-package criteriosDeAceptacion.first.iteration;
+package ungs.criteriosDeAceptacion.first.iteration;
 
 import com.google.common.collect.Maps;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import servicesStub.RssConnectorStub;
+import ungs.servicesStub.RssConnectorStub;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.FilterExecutor;

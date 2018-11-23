@@ -8,8 +8,6 @@ import ungs.filters.filterFactory.FilterFactory;
 import ungs.filters.filterInt.AbstractFilter;
 import ungs.model.ViewFilter;
 import ungs.services.Service;
-import ungs.utils.JsonMapper;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +22,6 @@ public class FilterManager {
         }
         if(viewFilter.getSelection()) {
             if (CollectionUtils.isNotEmpty(viewFilter.getProviders())) {
-                System.out.println("service " + service.getOrigin());
                 if(viewFilter.getProviders().contains(service.getOrigin().toLowerCase()) &&
                    CollectionUtils.isEmpty(viewFilter.getThemes()) && StringUtils.isBlank(viewFilter.getDescription())) {
                     filters.add(factory.getAllFilter());
@@ -39,7 +36,6 @@ public class FilterManager {
                 filters.add(factory.getDescriptionFilter(viewFilter.getDescription()));
             }
         }
-        JsonMapper.getMapper().toJson(filters);
         return filters;
     }
 

@@ -1,4 +1,4 @@
-package coverage.connectors;
+package ungs.coverage.connectors;
 
 import com.google.common.collect.Lists;
 import ungs.caches.client.CacheClient;

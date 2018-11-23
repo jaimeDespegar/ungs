@@ -1,4 +1,4 @@
-package servicesStub;
+package ungs.servicesStub;
 
 import static org.mockito.Mockito.*;
 import com.google.common.collect.Lists;

@@ -1,4 +1,4 @@
-package coverage.connectors;
+package ungs.coverage.connectors;
 
 import org.joda.time.DateTime;
 import org.testng.Assert;
@@ -7,8 +7,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ungs.caches.client.CacheClient;
 import ungs.model.InformationDto;
-import ungs.model.Origin;
-import ungs.themes.Theme;
 
 public class CacheClientTest {
 

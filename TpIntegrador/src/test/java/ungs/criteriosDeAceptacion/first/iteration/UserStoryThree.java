@@ -1,9 +1,9 @@
-package criteriosDeAceptacion.first.iteration;
+package ungs.criteriosDeAceptacion.first.iteration;
 
-import builders.ViewFilterBuilder;
+import ungs.builders.ViewFilterBuilder;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import servicesStub.*;
+import ungs.servicesStub.*;
 import ungs.builder.InformationBuilder;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.filters.FilterExecutor;

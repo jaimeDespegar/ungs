@@ -1,6 +1,6 @@
-package coverage.connectors;
+package ungs.coverage.connectors;
 
-import static org.junit.Assert.*;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ungs.connectors.impl.RssConnector;
@@ -16,12 +16,12 @@ public class RssConnectorTest {
 
     @Test(enabled = false)
     public void isAvailable_isOk() {
-        assertTrue(instance.isAvailable());
+        Assert.assertTrue(instance.isAvailable());
     }
 
     @Test(enabled = false)
     public void isAvailable_isFalse() {
-        assertFalse(instance.isAvailable());
+        Assert.assertFalse(instance.isAvailable());
     }
 
 }

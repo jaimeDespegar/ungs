@@ -13,8 +13,6 @@ import ungs.model.InformationDto;
 import ungs.model.ViewFilter;
 import ungs.transformers.TransformerInformation;
 import ungs.utils.ConfigUtils;
-import ungs.utils.JsonMapper;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,8 +93,6 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
     }
 
     public List<OBJECT> getDataByFilters(ViewFilter viewFilter) {
-        logger.info(JsonMapper.getMapper().toJson(filterManager));
-        logger.info(JsonMapper.getMapper().toJson(filterExecutor));
         List<AbstractFilter> filters = filterManager.getFilters(this, viewFilter);
         return filterExecutor.getData(filters);
     }
