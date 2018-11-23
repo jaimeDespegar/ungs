@@ -1,4 +1,4 @@
-package ungs.filters.filterFactory;
+package ungs.filters.filterFactory.interfaz;
 
 import ungs.dto.Theme;
 import ungs.filters.filterInt.AllFilter;

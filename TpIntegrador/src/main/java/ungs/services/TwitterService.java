@@ -7,7 +7,7 @@ import ungs.connectors.interfaz.TwitterSpecificConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.filters.FilterExecutor;
 import ungs.filters.FilterManager;
-import ungs.filters.filterFactory.TwitterFilterFactory;
+import ungs.filters.filterFactory.impl.TwitterFilterFactory;
 import ungs.model.Configuration;
 import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;

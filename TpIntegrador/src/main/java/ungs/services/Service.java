@@ -6,7 +6,7 @@ import ungs.circuitBreaker.ConnectorProxy;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.filters.FilterExecutor;
 import ungs.filters.FilterManager;
-import ungs.filters.filterFactory.FilterFactory;
+import ungs.filters.filterFactory.interfaz.FilterFactory;
 import ungs.filters.filterInt.AbstractFilter;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;

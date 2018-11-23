@@ -1,8 +1,9 @@
-package ungs.filters.filterFactory;
+package ungs.filters.filterFactory.impl;
 
 import com.google.common.collect.Lists;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.Theme;
+import ungs.filters.filterFactory.interfaz.FilterFactory;
 import ungs.filters.filterInt.*;
 import ungs.filters.rss.*;
 import java.util.List;

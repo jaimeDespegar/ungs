@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import ungs.dto.Theme;
-import ungs.filters.filterFactory.FilterFactory;
+import ungs.filters.filterFactory.interfaz.FilterFactory;
 import ungs.filters.filterInt.AbstractFilter;
 import ungs.model.ViewFilter;
 import ungs.services.Service;

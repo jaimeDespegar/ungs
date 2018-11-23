@@ -8,7 +8,7 @@ import ungs.servicesStub.RssConnectorStub;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.dto.rss.RssItemDto;
 import ungs.filters.FilterExecutor;
-import ungs.filters.filterFactory.RssFilterFactory;
+import ungs.filters.filterFactory.impl.RssFilterFactory;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.services.RssService;
