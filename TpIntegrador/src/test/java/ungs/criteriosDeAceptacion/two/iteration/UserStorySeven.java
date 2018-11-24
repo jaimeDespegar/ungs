@@ -19,7 +19,7 @@ import ungs.services.Service;
 import ungs.utils.ConfigUtils;
 import java.util.List;
 
-public class UserStoryN7 {
+public class UserStorySeven {
 
     private ConfigurationManager manager;
     private ServiceCacheProxy cacheProxy;

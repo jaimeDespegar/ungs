@@ -1,6 +1,7 @@
 package ungs.services;
 
 import org.slf4j.*;
+import ungs.circuitBreaker.CircuitBreakerState;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.filters.*;
 import ungs.filters.filterFactory.interfaz.FilterFactory;
@@ -87,6 +88,10 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
     public List<OBJECT> getDataByFilters(ViewFilter viewFilter) {
         List<AbstractFilter> filters = filterManager.getFilters(this, viewFilter);
         return filterExecutor.getData(filters);
+    }
+
+    public CircuitBreakerState getStateConnector() {
+        return connector.getState();
     }
 
 }

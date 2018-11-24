@@ -20,7 +20,7 @@ public class CircuitBreakerStateOpen<T> implements CircuitBreakerState {
         if (this.monitorTask == null) {
             this.monitorTask = new ServiceMonitorTask(connector);
             long minutes = connector.getConfiguration().getNumber(ConfigUtils.MINUTES_MONITOR_TASK).longValue();
-            logger.lñññññññ awwwwwwww (String.format("Run Job Monitor Task, every %s minutes.", minutes));
+            logger.info(String.format("Run Job Monitor Task, every %s minutes.", minutes));
             JobUtils.runJob(monitorTask, minutes);
         }
 

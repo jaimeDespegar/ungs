@@ -1,11 +1,14 @@
 package ungs.circuitBreaker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.utils.exceptions.CircuitBreakerCloseException;
 import java.util.List;
 
 public class CircuitBreakerStateClose<T> implements CircuitBreakerState {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private Integer retriesCount;
     private Integer failsCount;
 
@@ -24,9 +27,11 @@ public class CircuitBreakerStateClose<T> implements CircuitBreakerState {
                 failsCount = 0;
             } catch (Exception e) {
                 this.failsCount += 1;
+                logger.warn("Rompee", e);
             }
         }
-        if (failsCount>retriesCount) {
+        if (failsCount > retriesCount) {
+            this.logger.warn("Threshold exceeded, the circuit was opened");
             throw new CircuitBreakerCloseException("Threshold exceeded, the circuit was opened");
         }
         return result;

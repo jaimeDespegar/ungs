@@ -65,6 +65,10 @@ public abstract class AbstractConnector<MODELO> implements Connector<MODELO> {
         this.state = state;
     }
 
+    public CircuitBreakerState getState() {
+        return state;
+    }
+
     public void reconnectedCircuite() {
         this.state.doAction(this, "");
         this.setNextState();
