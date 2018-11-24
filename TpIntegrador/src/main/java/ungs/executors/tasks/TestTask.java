@@ -1,10 +1,10 @@
-package ungs.caches.executors.tasks;
+package ungs.executors.tasks;
 
 import com.google.common.collect.Lists;
 import ungs.caches.client.MongoDbCacheClient;
-import ungs.caches.executors.TaskExecutor;
-import ungs.caches.executors.TaskJob;
-import ungs.caches.executors.tasks.impl.LoadCacheTask;
+import ungs.executors.TaskExecutor;
+import ungs.executors.TaskJob;
+import ungs.executors.tasks.impl.LoadCacheTask;
 import ungs.connectors.impl.TwitterConnector;
 import ungs.filters.FilterExecutor;
 import ungs.filters.filterFactory.impl.TwitterFilterFactory;

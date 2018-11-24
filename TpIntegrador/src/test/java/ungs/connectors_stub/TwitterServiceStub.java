@@ -1,4 +1,4 @@
-package ungs.servicesStub;
+package ungs.connectors_stub;
 
 import static org.mockito.Mockito.*;
 import com.google.common.collect.Lists;

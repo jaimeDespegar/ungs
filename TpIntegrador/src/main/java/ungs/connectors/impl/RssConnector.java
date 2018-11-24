@@ -51,7 +51,7 @@ public class RssConnector extends AbstractConnector<RssItemDto> implements RssSp
     @Override
     public List<RssItemDto> find(List<String> listUrl) {
         List<RssItemDto> items = Lists.newArrayList();
-        listUrl.forEach(url -> items.addAll(find(url)));
+        listUrl.forEach(url -> items.addAll(this.doFind(url)));
         return items;
     }
 

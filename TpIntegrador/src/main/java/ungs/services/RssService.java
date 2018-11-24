@@ -31,12 +31,12 @@ public class RssService extends Service<AbstractConnector, RssItemDto, RssTransf
     }
 
     public List<RssItemDto> getListItemsByTheme(String theme) {
-        return this.connector.find(theme);
+        return this.connector.doFind(theme);
     }
 
     public List<RssItemDto> getAllItems() {
         List<RssItemDto> items = Lists.newArrayList();
-        Theme.getThemes().forEach(theme-> items.addAll(getListItemsByTheme(theme.getValueKey())));
+        configuration.getKeysStartWith("rss.theme").forEach(theme-> items.addAll(getListItemsByTheme(theme)));
         return ResponseUtil.getListItemsBySizeConfiguration(items, this.getCountValues());
     }
 

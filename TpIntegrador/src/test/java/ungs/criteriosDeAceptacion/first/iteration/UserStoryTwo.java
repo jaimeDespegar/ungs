@@ -4,15 +4,11 @@ import com.google.common.collect.Maps;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ungs.servicesStub.RssConnectorStub;
-import ungs.connectors.impl.AbstractConnector;
+import ungs.builders.services.ServiceBuilder;
 import ungs.dto.rss.RssItemDto;
-import ungs.filters.FilterExecutor;
-import ungs.filters.filterFactory.impl.RssFilterFactory;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.services.RssService;
-import ungs.transformers.RssTransformer;
 import ungs.utils.exceptions.ConfigurationException;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +18,10 @@ public class UserStoryTwo {
     private RssService service;
     private Map<String,String> valuesConfiguration = Maps.newHashMap();
     private String pathFile = "src/test/resources/test-files/services/rss/rss-exists.properties";
-    private AbstractConnector connector = new RssConnectorStub();
 
     @BeforeMethod
     public void init() {
-        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector),new FilterExecutor(), new Configuration(pathFile));
+        this.service = ServiceBuilder.create().buildRss(pathFile).build();
     }
 
 //  Sí se setea el archivo rss-noexists.properties como configuracion en el servicio, la aplicación retorna una ConfigurationException con el mensaje “El archivo de configuración rss-noexists.properties no existe”.
@@ -73,14 +68,14 @@ public class UserStoryTwo {
     public void serviceIsNotOk_whenUrlsAreInvalid() {
         this.valuesConfiguration.put("rss.theme.sport", "http://www.urlOk.com");
         this.valuesConfiguration.put("rss.theme.politics", "http://www.urlError.com");
-        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector), new FilterExecutor(), new Configuration(valuesConfiguration));
+        this.service = ServiceBuilder.create().buildRss(valuesConfiguration).build();
     }
 
 //  Sí inició el servicio con la url1 , el servicio se crea correctamente.
     @Test
     public void createService_whenUrlLoadIsOk_thenIsCreationOk() {
         this.valuesConfiguration.put("rss.theme.sport", "http://www.urlOk.com");
-        this.service = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector), new FilterExecutor(), new Configuration(valuesConfiguration));
+        this.service = ServiceBuilder.create().buildRss(valuesConfiguration).build();
     }
 
 //  Si el valor de la configuración de cantidad de respuesta es 1 devuelvo 1 elemento.

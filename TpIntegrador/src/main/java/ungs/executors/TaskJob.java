@@ -1,6 +1,6 @@
-package ungs.caches.executors;
+package ungs.executors;
 
-import ungs.caches.executors.tasks.interfaces.MyTask;
+import ungs.executors.tasks.interfaces.MyTask;
 
 import java.util.Date;
 import java.util.TimerTask;

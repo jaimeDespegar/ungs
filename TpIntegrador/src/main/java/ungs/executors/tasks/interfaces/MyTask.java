@@ -1,4 +1,4 @@
-package ungs.caches.executors.tasks.interfaces;
+package ungs.executors.tasks.interfaces;
 
 public interface MyTask {
 

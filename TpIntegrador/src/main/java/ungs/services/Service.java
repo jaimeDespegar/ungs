@@ -1,11 +1,8 @@
 package ungs.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ungs.circuitBreaker.ConnectorProxy;
+import org.slf4j.*;
 import ungs.connectors.impl.AbstractConnector;
-import ungs.filters.FilterExecutor;
-import ungs.filters.FilterManager;
+import ungs.filters.*;
 import ungs.filters.filterFactory.interfaz.FilterFactory;
 import ungs.filters.filterInt.AbstractFilter;
 import ungs.model.Configuration;
@@ -21,7 +18,6 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     protected C connector;
     protected T transformer;
-    protected ConnectorProxy proxy;
     protected Configuration configuration;
     protected FilterFactory filterFactory;
     protected FilterExecutor<OBJECT> filterExecutor;
@@ -64,10 +60,6 @@ public abstract class Service<C extends AbstractConnector, OBJECT, T extends Tra
 
     public String getOrigin() {
         return configuration.get(ConfigUtils.SERVICE_NAME);
-    }
-
-    public ConnectorProxy getProxy() {
-        return proxy;
     }
 
     public FilterFactory getFilterFactory() {

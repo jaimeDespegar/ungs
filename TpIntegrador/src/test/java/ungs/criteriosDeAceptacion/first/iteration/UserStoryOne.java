@@ -4,15 +4,10 @@ import com.google.common.collect.Maps;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ungs.servicesStub.TwitterConnectorStub;
-import ungs.connectors.impl.AbstractConnector;
+import ungs.builders.services.ServiceBuilder;
 import ungs.dto.TwitterObjectDto;
-import ungs.filters.FilterExecutor;
-import ungs.filters.filterFactory.impl.TwitterFilterFactory;
-import ungs.model.Configuration;
 import ungs.model.InformationDto;
 import ungs.services.TwitterService;
-import ungs.transformers.TwitterTransformer;
 import ungs.utils.exceptions.ConfigurationException;
 import java.util.List;
 import java.util.Map;
@@ -23,28 +18,25 @@ public class UserStoryOne {
 //    con el mensaje “El archivo de configuración twitter.properties no existe”.
 
     private TwitterService twitterServiceStub;
-    private AbstractConnector tConnector = new TwitterConnectorStub();
     private Map<String,String> valuesConfiguration = Maps.newHashMap();
-
+    String path = "src/test/resources/test-files/services/twitter/twitter-exists.properties";
 
     @BeforeMethod
     public void init() {
-        String path = "src/test/resources/test-files/services/twitter/twitter-exists.properties";
-        this.twitterServiceStub = new TwitterService(new TwitterTransformer(), tConnector, new TwitterFilterFactory(tConnector), new FilterExecutor(), new Configuration(path));
+        this.twitterServiceStub = ServiceBuilder.create().buildTwitter(path).build();
     }
 
 
 
     @Test(expectedExceptions = ConfigurationException.class)
     public void createServiceTwitter_withConfigurationInvalid() {
-        this.twitterServiceStub = new TwitterService(new Configuration("twitter-noexistis.properties"));
+        this.twitterServiceStub = ServiceBuilder.create().buildTwitter("twitter-noexistis.properties").build();;
     }
 
 //    Sí se setea el archivo twitter-exists.properties se como configuración en el servicio , se crea correctamente el servicio.
     @Test
     public void createServiceTwitter_withConfigurationValid() {
-        String path = "src/test/resources/test-files/services/twitter/twitter-exists.properties";
-        this.twitterServiceStub = new TwitterService(new Configuration(path));
+        this.twitterServiceStub = ServiceBuilder.create().buildTwitter(path).build();
         Assert.assertNotNull(twitterServiceStub.getConfiguration());
     }
 
@@ -53,7 +45,7 @@ public class UserStoryOne {
     @Test
     public void accountTwitterInvalid_thenIsServiceNotOk() {
         this.setValuesAccountUser("invalid");
-        tConnector.setConfiguration(new Configuration(valuesConfiguration));
+        this.twitterServiceStub = ServiceBuilder.create().buildTwitter(valuesConfiguration).build();
         Assert.assertFalse(twitterServiceStub.isServiceOk());
     }
 
@@ -61,7 +53,7 @@ public class UserStoryOne {
     @Test
     public void accountTwitterInvalid_thenIsServiceOk() {
         setValuesAccountUser("ok");
-        tConnector.setConfiguration(new Configuration(valuesConfiguration));
+        this.twitterServiceStub = ServiceBuilder.create().buildTwitter(valuesConfiguration).build();
         Assert.assertTrue(twitterServiceStub.isServiceOk());
     }
 //    Sí pido la data con el servicio Ok , devuelvo una lista con 2 items (Ids: 1, 2).

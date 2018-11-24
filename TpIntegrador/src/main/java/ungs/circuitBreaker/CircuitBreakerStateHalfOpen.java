@@ -1,7 +1,7 @@
 package ungs.circuitBreaker;
 
 import com.google.common.collect.Lists;
-import ungs.connectors.interfaz.Connector;
+import ungs.connectors.impl.AbstractConnector;
 import java.util.List;
 
 public class CircuitBreakerStateHalfOpen<T> implements CircuitBreakerState {
@@ -9,10 +9,10 @@ public class CircuitBreakerStateHalfOpen<T> implements CircuitBreakerState {
     private CircuitBreakerState nextState = null;
 
     @Override
-    public List<T> doAction(Connector connector) {
+    public List<T> doAction(AbstractConnector connector, String value) {
         List<T> result = Lists.newArrayList();
         try {
-            result = connector.find("");
+            result = connector.find(value);
             nextState = new CircuitBreakerStateClose(2);
         } catch (Exception e) {
             nextState = new CircuitBreakerStateOpen();

@@ -41,4 +41,7 @@ public abstract class ConfigUtils {
     public static final String MONGO_BD = "mongo.database";
     public static final String MONGO_COLECCTION = "mongo.collection";
 
+    // TASKS
+    public static final String MINUTES_MONITOR_TASK = "service.monitorTask.minutes";
+
 }

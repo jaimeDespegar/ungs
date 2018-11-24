@@ -1,16 +1,22 @@
-package ungs.servicesStub;
+package ungs.connectors_stub;
 
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.connectors.interfaz.TwitterSpecificConnector;
 import ungs.dto.TwitterObjectDto;
+import ungs.model.Configuration;
+
 import java.util.Date;
 import java.util.List;
 
 public class TwitterConnectorStub extends AbstractConnector<TwitterObjectDto> implements TwitterSpecificConnector {
 
     private List<TwitterObjectDto> itemsTwitter = Lists.newArrayList();
+
+    public TwitterConnectorStub(Configuration configuration) {
+        super(configuration);
+    }
 
     @Override
     public void initConnection() {

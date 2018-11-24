@@ -1,9 +1,10 @@
-package ungs.servicesStub;
+package ungs.connectors_stub;
 
 import com.google.common.collect.Lists;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.connectors.interfaz.RssSpecificConnector;
 import ungs.dto.rss.RssItemDto;
+import ungs.model.Configuration;
 import ungs.utils.ConfigUtils;
 import ungs.utils.RssCheckUrlUtil;
 import java.util.List;
@@ -13,7 +14,9 @@ public class RssConnectorStub extends AbstractConnector implements RssSpecificCo
 
     private List<RssItemDto> itemsRss = Lists.newArrayList();
 
-    public RssConnectorStub() {}
+    public RssConnectorStub(Configuration configuration) {
+        super(configuration);
+    }
 
     @Override
     public void initConnection() {
@@ -41,7 +44,7 @@ public class RssConnectorStub extends AbstractConnector implements RssSpecificCo
         if(keyUrl.equalsIgnoreCase("rss.theme.politics")) {
             return itemsRss.subList(1,2);
         }
-        return null;
+        throw new RuntimeException();
     }
 
     @Override

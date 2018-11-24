@@ -1,7 +1,7 @@
-package ungs.caches.executors.tasks.impl;
+package ungs.executors.tasks.impl;
 
 import ungs.caches.client.CacheClient;
-import ungs.caches.executors.tasks.interfaces.MyTask;
+import ungs.executors.tasks.interfaces.MyTask;
 
 public abstract class CacheTask implements MyTask {
 

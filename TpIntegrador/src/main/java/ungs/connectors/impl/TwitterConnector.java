@@ -1,25 +1,20 @@
 package ungs.connectors.impl;
 
-import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 import ungs.connectors.interfaz.TwitterSpecificConnector;
 import ungs.dto.TwitterObjectDto;
 import ungs.helpers.TwitterHelper;
 import ungs.model.Configuration;
-import ungs.utils.ConfigUtils;
-import ungs.utils.ResponseUtil;
+import ungs.utils.*;
+import ungs.utils.exceptions.ConnectionException;
 import java.util.List;
 
 public class TwitterConnector extends AbstractConnector<TwitterObjectDto> implements TwitterSpecificConnector {
 
     private Twitter twitter;
     private TwitterHelper helper;
-    private Integer COUNT_ELEMENTS;
-
-    public TwitterConnector(TwitterHelper helper) {
-        this.helper = helper;
-    }
 
     public TwitterConnector() {
         this.helper = new TwitterHelper();
@@ -27,7 +22,6 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> implem
 
     public TwitterConnector(Configuration configuration) {
         this.configuration = configuration;
-        this.COUNT_ELEMENTS = configuration.getNumber(ConfigUtils.TWITTER_COUNT);
         this.helper = new TwitterHelper();
     }
 
@@ -37,7 +31,8 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> implem
         cb.setDebugEnabled(true).setOAuthConsumerKey(configuration.get(ConfigUtils.TWITTER_API_KEY))
                                 .setOAuthConsumerSecret(configuration.get(ConfigUtils.TWITTER_API_SECRET_KEY))
                                 .setOAuthAccessToken(configuration.get(ConfigUtils.TWITTER_TOKEN_KEY))
-                                .setOAuthAccessTokenSecret(configuration.get(ConfigUtils.TWITTER_TOKEN_SECRET_KEY));
+                                .setOAuthAccessTokenSecret(configuration.get(ConfigUtils.TWITTER_TOKEN_SECRET_KEY))
+                                .setHttpReadTimeout(configuration.getNumber(ConfigUtils.SERVICE_TIMEOUT));
         TwitterFactory tf = new TwitterFactory(cb.build());
         this.twitter = tf.getInstance();
     }
@@ -46,13 +41,12 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> implem
     public boolean isAvailable() {
         try {
             logger.info("twitter.getScreenName() : " + twitter.getScreenName());
-            return twitter.getScreenName().length()>0;
+            return StringUtils.isBlank(twitter.getScreenName());
         } catch (Exception e) {
             logger.warn("El usuario no esta habilitado, error");
             return false;
         }
     }
-
 
     public List<TwitterObjectDto> find(String valueToFind, Integer value) {
         return ResponseUtil.getListItemsBySizeConfiguration(find(valueToFind), value);
@@ -65,21 +59,13 @@ public class TwitterConnector extends AbstractConnector<TwitterObjectDto> implem
             return helper.transformToTwitterModel(result);
         } catch (TwitterException te) {
             logger.error("Mensaje error Connector Twitter.", te);
+            throw new ConnectionException("The service Twitter is not available", te);
         }
-        return Lists.newArrayList();
     }
 
     @Override
     public List<TwitterObjectDto> findByUser(String user) {
-        return this.find("from:" + user);
-    }
-
-    public List<TwitterObjectDto> findByUserAndDescription(String user, String description) {
-        return this.find("from:" + user + " " + description);
-    }
-
-    public List<TwitterObjectDto> findByHashtag(String hashtag) {
-        return this.find("#" + hashtag);
+        return this.doFind("from:" + user);
     }
 
     public List<Status> searchtweets(String value) throws TwitterException {

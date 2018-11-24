@@ -3,9 +3,10 @@ package ungs.criteriosDeAceptacion.first.iteration;
 import ungs.builders.ViewFilterBuilder;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import ungs.builders.services.ServiceBuilder;
 import ungs.filters.filterFactory.impl.RssFilterFactory;
 import ungs.filters.filterFactory.impl.TwitterFilterFactory;
-import ungs.servicesStub.*;
+import ungs.connectors_stub.*;
 import ungs.builder.InformationBuilder;
 import ungs.connectors.impl.AbstractConnector;
 import ungs.filters.FilterExecutor;
@@ -21,16 +22,14 @@ public class UserStoryThree {
     private RssService rssService;
     private TwitterService twitterService;
     private InformationService informationService;
-    private AbstractConnector connector = new RssConnectorStub();
-    private AbstractConnector tConnector = new TwitterConnectorStub();
     private ViewFilter filterSport,filterPolitics,filterDescription,filterAll,filterDescriptionAndSport,filterDescriptionAndPolitics,filterDescriptionAndAllThemes;
     private String pathFileRss = "src/test/resources/test-files/services/rss/rss-exists.properties";
     private String pathFileTwitter = "src/test/resources/test-files/services/twitter/twitter-exists.properties";
 
     @BeforeClass
     public void init() {
-        this.rssService = new RssService(new RssTransformer(), connector, new RssFilterFactory(connector),new FilterExecutor(), new Configuration(pathFileRss));
-        this.twitterService = new TwitterService(new TwitterTransformer(), tConnector, new TwitterFilterFactory(tConnector), new FilterExecutor(), new Configuration(pathFileTwitter));
+        this.rssService = ServiceBuilder.create().buildRss(pathFileRss).build();
+        this.twitterService = ServiceBuilder.create().buildTwitter(pathFileTwitter).build();
 
         this.informationService = new InformationBuilder().build();
         this.informationService.addService(rssService);

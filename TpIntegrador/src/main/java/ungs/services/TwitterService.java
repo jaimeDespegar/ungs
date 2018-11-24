@@ -31,10 +31,6 @@ public class TwitterService extends Service<AbstractConnector, TwitterObjectDto,
         this.init();
     }
 
-    public boolean isOkServiceTwitter() {
-        return this.connector.isAvailable();
-    }
-
     public List<TwitterObjectDto> getAllTweets() {
         List<String> allUsers = this.getAllUsersNames();
         List<TwitterObjectDto> tweets = Lists.newArrayList();

@@ -2,13 +2,10 @@ package ungs.coverage.services;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ungs.connectors.impl.TwitterConnector;
+import ungs.builders.services.ServiceBuilder;
 import ungs.dto.TwitterObjectDto;
-import ungs.filters.FilterExecutor;
-import ungs.filters.filterFactory.impl.TwitterFilterFactory;
 import ungs.model.Configuration;
 import ungs.services.TwitterService;
-import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
 import java.util.List;
 
@@ -18,8 +15,7 @@ public class TwitterServiceTest {
 
     @BeforeClass
     public void init() {
-        this.service = new TwitterService(new TwitterTransformer(), new TwitterConnector(), new TwitterFilterFactory(new TwitterConnector()),
-                new FilterExecutor(), new Configuration(ConfigUtils.TWITTER_FILE));
+        this.service = ServiceBuilder.create().buildTwitter(new Configuration(ConfigUtils.TWITTER_FILE)).build();
     }
 
     //@Test

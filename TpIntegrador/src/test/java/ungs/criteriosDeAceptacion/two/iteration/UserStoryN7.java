@@ -5,25 +5,17 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ungs.builders.services.ServiceBuilder;
 import ungs.caches.client.MongoDbCacheClient;
 import ungs.caches.client.ServiceCacheProxy;
 import ungs.caches.connection.ConfigurationManager;
 import ungs.caches.dto.MongoConfigurationDto;
-import ungs.caches.executors.TaskExecutor;
-import ungs.caches.executors.TaskJob;
-import ungs.caches.executors.tasks.impl.LoadCacheTask;
-import ungs.connectors.impl.RssConnector;
-import ungs.connectors.impl.TwitterConnector;
-import ungs.filters.FilterExecutor;
-import ungs.filters.filterFactory.impl.RssFilterFactory;
-import ungs.filters.filterFactory.impl.TwitterFilterFactory;
+import ungs.executors.TaskExecutor;
+import ungs.executors.TaskJob;
+import ungs.executors.tasks.impl.LoadCacheTask;
 import ungs.model.Configuration;
 import ungs.model.InformationDto;
-import ungs.services.RssService;
 import ungs.services.Service;
-import ungs.services.TwitterService;
-import ungs.transformers.RssTransformer;
-import ungs.transformers.TwitterTransformer;
 import ungs.utils.ConfigUtils;
 import java.util.List;
 
@@ -36,9 +28,8 @@ public class UserStoryN7 {
     @BeforeClass
     public void init() {
         this.manager = new ConfigurationManager();
-        List<Service> services = Lists.newArrayList(new TwitterService(new TwitterTransformer(), new TwitterConnector(),
-                                            new TwitterFilterFactory(new TwitterConnector()),new FilterExecutor(), new Configuration(ConfigUtils.TWITTER_FILE)) ,
-                new RssService(new RssTransformer(), new RssConnector(),new RssFilterFactory(new RssConnector()), new FilterExecutor(),new Configuration(ConfigUtils.RSS_FILE)));
+        List<Service> services = Lists.newArrayList(ServiceBuilder.create().buildTwitter(new Configuration(ConfigUtils.TWITTER_FILE)).build(),
+                                                    ServiceBuilder.create().buildRss(new Configuration(ConfigUtils.RSS_FILE)).build());
         this.cacheProxy = new ServiceCacheProxy();
         this.taskExecutor = new TaskExecutor(new TaskJob(new LoadCacheTask(new MongoDbCacheClient(), services)), 1L);
     }
@@ -52,8 +43,7 @@ public class UserStoryN7 {
 
     @Test
     public void testGetDataProxy_whenRssHaveNotCache_thenRssGetDataService() {
-        cacheProxy.setService(new RssService(new RssTransformer(), new RssConnector(),
-                new RssFilterFactory(new RssConnector()),new FilterExecutor(),new Configuration(ConfigUtils.RSS_FILE)));
+        cacheProxy.setService(ServiceBuilder.create().buildRss(new Configuration(ConfigUtils.RSS_FILE)).build());
         List<InformationDto> list = cacheProxy.getData();
         assertTrue(true);
     }
